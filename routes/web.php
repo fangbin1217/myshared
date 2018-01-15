@@ -38,6 +38,18 @@ $router->get( 'travel/index/{id}', [
     'uses' => 'TravelController@index',
 ] );
 
+$router->get( '/login', [
+    'uses' => 'LoginController@index',
+] );
+
+$router->post( 'login/verify', [
+    'uses' => 'LoginController@verify',
+] );
+
+$router->get( '/admin', [
+    'uses' => 'LoginController@admin',
+] );
+
 $router->get( 'example/test', [
     'uses' => 'ExampleController@test',
 ] );

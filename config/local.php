@@ -15,7 +15,8 @@ $localConfig = [
 $localConfig['nav'] = [
     'resume' => '关于我 > 个人简介',
     'baby' => '关于我 > 宝宝成长',
-    'travel' => '旅游分享 > 浪迹天涯'
+    'travel' => '旅游分享 > 浪迹天涯',
+    'login' => '关于我 > 用户登录'
 ];
 
 $localConfig['travel_tag'] = [

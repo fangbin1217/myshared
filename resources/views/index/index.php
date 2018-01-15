@@ -17,7 +17,11 @@
                         <div class="user-login">欢迎光临【花好月圆的个人经验】！</div>
                         <div class="nav-set">
                             <div class="nav-login">
-                                <a href="javascript:;" id="login-main">登录</a>
+                                <?php if ($login) { ?>
+                                    <a href="javascript:;" id="login-main">您好！<span><?php echo $login['uname']; ?></span></a>
+                                <?php  } else {?>
+                                    <a href="javascript:;" id="login-main">登录</a>
+                                <?php  }?>
                             </div>
                         </div>
                         <div class="clear"></div>
