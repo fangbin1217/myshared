@@ -38,6 +38,10 @@ $router->get( 'travel/index/{id}', [
     'uses' => 'TravelController@index',
 ] );
 
+$router->get( '/travelmore', [
+    'uses' => 'TravelController@more',
+] );
+
 $router->get( '/login', [
     'uses' => 'LoginController@index',
 ] );

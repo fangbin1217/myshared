@@ -28,8 +28,6 @@ class LoginController extends Controller
     public function verify() {
         $isLogin = $this->isLogin($_POST['name'], $_POST['pwd']);
         if ($isLogin['success']) {
-            //启动session
-            session_start();
             $_SESSION['UID']=$isLogin['data']['uid'];
             $_SESSION['UNAME']=$isLogin['data']['name'];
             //setcookie('user_id',$isLogin['data']['uid'],time()+(7200));

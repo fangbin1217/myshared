@@ -15,7 +15,6 @@ class Controller extends BaseController
     public function __contract() {
         $this->result = $this->modelCommon;
         $this->result['login'] = [];
-        session_start();
         if (isset($_SESSION['UNAME'])) {
             $this->result['login']['uname'] = $_SESSION['UNAME'];
         }
