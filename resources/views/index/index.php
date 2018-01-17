@@ -27,22 +27,20 @@
                         <div class="clear"></div>
                     </div>
                     <div class="menu-menutop-container"><ul id="menu-menutop" class="top-menu">
-                            <!--<li id="menu-item-3720" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-3720"><a title="明月登楼博客收费服务" target="_blank" href="https://blog.ymanz.com/charge.html"><i class="be be-weibiaoti-"></i><span class="font-text">敬请期待</span></a></li>-->
                         </ul></div> </div>
             </nav>
             <div id="menu-box">
                 <div id="top-menu">
-
                     <div class="logo-site">
                         <h1 class="site-title">
                             <a href="<?php echo config('local')['website']; ?>"><img src="<?php echo config('local')['website']; ?>/static/image/logo.png" title="花好月圆的个人经验" alt="花好月圆的个人经验" rel="home" /><span class="site-name">花好月圆的个人经验</span></a>
                         </h1>
                     </div>
                     <div id="site-nav-wrap">
-                        <div id="sidr-close"><a href="#sidr-close" class="toggle-sidr-close">×</a></div>
+                        <div id="sidr-close"><a href="#sidr-close" class="toggle-sidr-close">X</a></div>
                         <div id="sidr-menu"><div class="toggle-sidr-menu">MENU</a></div></div>
                         <nav id="site-nav" class="main-nav">
-                            <a href="#sidr-main" id="navigation-toggle" class="bars"><i class="be be-menu"></i></a>
+                            <a href="#sidr-main" id="navigation-toggle" class="bars" ><i class="be be-menu"></i></a>
                             <div class="menu-menu-container"><ul id="menu-menu" class="down-menu nav-menu"><li id="menu-item-481" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-481"><a title="花好月圆的个人经验" href="<?php echo config('local')['website']; ?>/">首页</a></li>
                                     <li id="menu-item-12" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-12"><a title="旅行分享的个人经验！" href="javascript:;">旅行分享</a>
                                         <ul class="sub-menu">
@@ -117,7 +115,22 @@
     <ul id="scroll">
         <li class="log log-no"><a class="log-button" title="文章目录"><i class="be be-menu"></i></a><div class="log-prompt"><div class="log-arrow">文章目录</div></div></li>
         <li><a class="scroll-h" title="返回顶部"><i class="be"><img src="/static/image/common/up16.png" style="width:24px;height:16px;" /></i></a></li>
-        <script type="text/javascript">$(document).ready(function(){if(!+[1,]){present="table";} else {present="canvas";}$('#output').qrcode({render:present,text:window.location.href,width:"150",height:"150"});});</script>
+        <li class="qqonline" id="qqonline"><div class="online"><a href="javascript:void(0)"><i class="be be-qq"></i></a></div>
+            <div class="qqonline-box" style="display: none;" id="qqonline-box">
+                <div class="qqonline-main">
+                    <div class="nline-wiexin">
+                        <h4>微信</h4>
+                        <img title="微信" alt="微信" src="<?php echo config('local')['website']; ?>/static/image/mywx.png">
+                    </div>
+                    <div class="nline-qq"><a target="_blank" rel="external nofollow" href="http://wpa.qq.com/msgrd?v=3&amp;uin=475543064&amp;site=qq&amp;menu=yes"><i class="be be-qq"></i>在线咨询</a></div>
+                </div>
+                <span class="qq-arrow"></span>
+            </div>
+        </li>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                if(!+[1,]){present="table";} else {present="canvas";}$('#output').qrcode({render:present,text:window.location.href,width:"150",height:"150"});
+            });</script>
     </ul>
     <!-- 这里是版权说明模块 -->
 </div>
