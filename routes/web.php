@@ -51,7 +51,11 @@ $router->post( 'login/verify', [
 ] );
 
 $router->get( '/admin', [
-    'uses' => 'LoginController@admin',
+    'uses' => 'AdminController@index',
+] );
+
+$router->get( '/admin/addbaby', [
+    'uses' => 'AdminController@addbaby',
 ] );
 
 $router->get( 'example/test', [

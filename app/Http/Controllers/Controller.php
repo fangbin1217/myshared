@@ -17,6 +17,11 @@ class Controller extends BaseController
         $this->result['login'] = [];
         if (isset($_SESSION['UNAME'])) {
             $this->result['login']['uname'] = $_SESSION['UNAME'];
+            $this->result['login']['uid'] = $_SESSION['UID'];
+            $this->result['login']['isAdmin'] = false;
+            if (in_array($_SESSION['UID'], [1,2])) {
+                $this->result['login']['isAdmin'] = true;
+            }
         }
     }
 

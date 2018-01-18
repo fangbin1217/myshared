@@ -113,7 +113,7 @@
 
     <!-- 这里是版权说明模块 -->
     <ul id="scroll">
-        <li class="log log-no"><a class="log-button" title="文章目录"><i class="be be-menu"></i></a><div class="log-prompt"><div class="log-arrow">文章目录</div></div></li>
+        <li><a class="scroll-home" href="javascript:;" title="MY" rel="home"><i class="be">L</i></a></li>
         <li><a class="scroll-h" title="返回顶部"><i class="be"><img src="/static/image/common/up16.png" style="width:24px;height:16px;" /></i></a></li>
         <li class="qqonline" id="qqonline"><div class="online"><a href="javascript:void(0)"><i class="be be-qq"></i></a></div>
             <div class="qqonline-box" style="display: none;" id="qqonline-box">
