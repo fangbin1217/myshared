@@ -24,6 +24,7 @@ $localConfig['nav'] = [
 $localConfig['image_type'] = [
     'image/jpeg' => 'jpg',
     'image/png' => 'png',
+    'image/gif' => 'gif',
 ];
 
 $localConfig['travel_tag'] = [

@@ -1,0 +1,12 @@
+/.idea
+.DS_Store
+_ide_helper.php
+.buildpath
+.project
+.settings
+
+/storage/logs/
+/static/image/upload/
+/vendor/
+index.php
+.env

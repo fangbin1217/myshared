@@ -67,10 +67,12 @@ class AdminController extends Controller
     {
         $result = ['success'=>false,'code'=>0, 'msg'=>'error'];
         if (!$this->result['login']) {
+            $result['code'] = 1001;
             $result['msg'] = '请先登录';
         }
 
         if ($this->result['login'] && !$this->result['login']['isAdmin']) {
+            $result['code'] = 1002;
             $result['msg'] = '非管理员不能操作';
         }
 
@@ -89,6 +91,7 @@ class AdminController extends Controller
         $myImage = '';
 
         if (!isset($_FILES['myfile'])) {
+            $result['code'] = 1003;
             $result['msg'] = '上传图片失败，无效的FILES';
         }
 
@@ -108,7 +111,7 @@ class AdminController extends Controller
                 chmod($imgDir, 0777);
             }
             //要生成的图片名字
-            $imageEnd = 'jpg';
+            $imageEnd = '';
             $imageType = '';
             if (isset($_FILES["myfile"]['type'])) {
                 $imageType = $_FILES["myfile"]['type'];
@@ -116,36 +119,52 @@ class AdminController extends Controller
             if (isset(config('local')['image_type'][$imageType])) {
                 $imageEnd = config('local')['image_type'][$imageType];
             }
-            $filename = 'B' . date('YmdHis') . '-' . rand(100, 999) . '.' . $imageEnd;
-            //新图片的路径
-            $newFilePath = $imgDir . $filename;
-            $data = $file;
+            if (!$imageEnd) {
+                $result['code'] = 1004;
+                $result['msg'] = '图片格式非法，仅支持JPG,PNG,GIF';
+            }
 
-            $newFile = fopen($newFilePath, "w"); //打开文件准备写入
-            fwrite($newFile, $data); //写入二进制流到文件
-            fclose($newFile); //关闭文件
+            if ($result['code'] == 0) {
+                $filename = 'B' . date('YmdHis') . '-' . rand(100, 999) . '.' . $imageEnd;
+                //新图片的路径
+                $newFilePath = $imgDir . $filename;
+                $data = $file;
 
-            if (file_exists($newFilePath)) {
-                //保存到数据库
-                $myImage = $relativePath . $filename;
-                $datas = [
-                    'title' => $title,
-                    'image' => $myImage,
-                    'ctime' => date('Y-m-d H:i:s', strtotime($mydate)),
-                    'utime' => date('Y-m-d H:i:s', strtotime($mydate)),
-                    'user_id' => $uid,
-                    'is_private' => $isPrivate,
-                ];
-                $family = new \App\Models\Family\Family();
-                $isSave = $family->saveData($datas);
-                if ($isSave) {
-                    $result['success'] = true;
-                    $result['msg'] = '上传成功';
+                $newFile = fopen($newFilePath, "w"); //打开文件准备写入
+                fwrite($newFile, $data); //写入二进制流到文件
+                fclose($newFile); //关闭文件
+
+                if (file_exists($newFilePath)) {
+                    //保存到数据库
+                    //$myImage = $relativePath . $filename;
+                    $imgCompess = new \App\Models\Common\Imgcompress($newFilePath, 320);
+
+                    $sfilename = 'BS' . date('YmdHis') . '-' . rand(100, 999) . '.' . $imageEnd;
+                    $snewFilePath = $imgDir.$sfilename;
+                    $imgCompess->compressImg($snewFilePath);
+                    $myImage = $relativePath . $sfilename;
+                    $datas = [
+                        'title' => $title,
+                        'image' => $myImage,
+                        'ctime' => date('Y-m-d H:i:s', strtotime($mydate)),
+                        'utime' => date('Y-m-d H:i:s', strtotime($mydate)),
+                        'user_id' => $uid,
+                        'is_private' => $isPrivate,
+                    ];
+                    $family = new \App\Models\Family\Family();
+                    $isSave = $family->saveData($datas);
+                    if ($isSave) {
+                        $result['success'] = true;
+                        $result['code'] = 0;
+                        $result['msg'] = '上传成功';
+                    }
+                }
+
+                if (!$result['success']) {
+                    $result['code'] = 1005;
+                    $result['msg'] = '上传图片失败';
                 }
             }
-        }
-        if (!$myImage) {
-            $result['msg'] = '上传图片失败';
         }
 
         $nav = config('local')['nav']['adminAddBaby'];
