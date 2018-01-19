@@ -58,6 +58,10 @@ $router->get( '/admin/addbaby', [
     'uses' => 'AdminController@addbaby',
 ] );
 
+$router->post( '/admin/savebaby', [
+    'uses' => 'AdminController@savebaby',
+] );
+
 $router->get( 'example/test', [
     'uses' => 'ExampleController@test',
 ] );

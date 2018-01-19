@@ -9,7 +9,7 @@ class Family extends Model {
 
     protected  $primaryKey = "id";
 
-    //public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * 根据城市获取限行规则
@@ -18,5 +18,17 @@ class Family extends Model {
      */
     static public function getList($offset, $limit = 5, $state = 0) {
         return ($model = Family::where("state", $state)->offset($offset)->limit($limit)->orderBy('utime','DESC')->get()) ? $model->toArray() : array();
+    }
+
+    public function saveData($datas) {
+        $result = 0;
+        $family = new Family();
+        if ($datas) {
+            foreach ($datas as $key=>$val) {
+                $family->$key = $val;
+            }
+            $result = $family->save( $datas );
+        }
+        return $result;
     }
 }

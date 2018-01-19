@@ -32,7 +32,7 @@ background: #fff;
 
         <a href="javascrip:;">敬请期待！</a><br/>
         <?php if($loginInfo['isAdmin']){ ?>
-            <a href="<?php echo config('local')['website']; ?>/admin/addbaby">宝宝成长</a><br/>
+            <a href="<?php echo config('local')['website']; ?>/admin/addbaby">添加宝宝照</a><br/>
         <?php } ?>
     </div>
 </div>

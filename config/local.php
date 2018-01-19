@@ -21,6 +21,11 @@ $localConfig['nav'] = [
     'adminAddBaby' => '后台管理 > 添加宝宝',
 ];
 
+$localConfig['image_type'] = [
+    'image/jpeg' => 'jpg',
+    'image/png' => 'png',
+];
+
 $localConfig['travel_tag'] = [
     1 => '1A级',
     2 => '2A级',
