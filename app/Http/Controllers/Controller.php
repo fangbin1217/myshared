@@ -22,6 +22,8 @@ class Controller extends BaseController
             if (in_array($_SESSION['UID'], [1,2])) {
                 $this->result['login']['isAdmin'] = true;
             }
+            $tip = \App\Models\Common\Date::getTip();
+            $this->result['login']['tip'] = $tip;
         }
     }
 

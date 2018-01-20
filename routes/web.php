@@ -69,3 +69,31 @@ $router->post( '/admin/savebaby', [
 $router->get( 'example/test', [
     'uses' => 'ExampleController@test',
 ] );
+
+$router->get( '/admin/mytravel', [
+    'uses' => 'AdminController@mytravel',
+] );
+
+$router->get( '/admin/addtravelfirst', [
+    'uses' => 'AdminController@addtravelfirst',
+] );
+
+$router->post( '/admin/savetravelfirst', [
+    'uses' => 'AdminController@savetravelfirst',
+] );
+
+$router->get( '/admin/addtraveldetail/{id}', [
+    'uses' => 'AdminController@addtraveldetail',
+] );
+
+$router->post( '/admin/savetraveldetail', [
+    'uses' => 'AdminController@savetraveldetail',
+] );
+
+$router->get( '/admin/look/{id}', [
+    'uses' => 'AdminController@look',
+] );
+
+$router->get( '/admin/checktravel/{id}', [
+    'uses' => 'AdminController@checktravel',
+] );

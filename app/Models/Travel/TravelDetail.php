@@ -9,10 +9,10 @@ class TravelDetail extends Model {
 
     protected  $primaryKey = "id";
 
-    //public $timestamps = false;
+    public $timestamps = false;
 
 
     static public function getInfoById($id, $offset, $limit = 5, $state = 0) {
-        return ($model = TravelDetail::where("state", $state)->offset($offset)->limit($limit)->orderBy('utime', 'ASC')->get()) ? $model->toArray() : array();
+        return ($model = TravelDetail::where("state", $state)->where("travel_id", $id)->offset($offset)->limit($limit)->orderBy('utime', 'ASC')->get()) ? $model->toArray() : array();
     }
 }

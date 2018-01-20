@@ -27,12 +27,15 @@ background: #fff;
 }
 </style>
 <div class="content">
-    <div style="text-align: left;padding: 5px 10px 5px;color:#777;"><?php echo $loginInfo['uname'].'，'.$tip; ?><a href="<?php echo config('local')['website']; ?>/login/loginout" style="float:right;padding: 0 10px;color:#777;">退出</a></div>
+    <div style="text-align: left;padding: 5px 10px 5px;color:#777;"><?php echo $loginInfo['uname'].'，'.$loginInfo['tip']; ?><a href="<?php echo config('local')['website']; ?>/login/loginout" style="float:right;padding: 0 10px;color:#777;">退出</a></div>
     <div class="content-form">
 
-        <a href="javascrip:;">敬请期待！</a><br/>
+        <div  style="padding:10px 0;">
+            <a href="<?php echo config('local')['website']; ?>/admin/mytravel"><img src="<?php echo config('local')['website']; ?>/static/image/mytravel.png" />&nbsp;我的旅行照</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="<?php echo config('local')['website']; ?>/admin/addtravelfirst"><img src="<?php echo config('local')['website']; ?>/static/image/add.png" />&nbsp;分享新的旅行照</a>
+        </div>
         <?php if($loginInfo['isAdmin']){ ?>
-            <a href="<?php echo config('local')['website']; ?>/admin/addbaby">添加宝宝照</a><br/>
+        <div  style="padding:10px 0;"><a href="<?php echo config('local')['website']; ?>/admin/addbaby"><img src="<?php echo config('local')['website']; ?>/static/image/add.png" />&nbsp;分享宝宝照</a></div>
         <?php } ?>
     </div>
 </div>

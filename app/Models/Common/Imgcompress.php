@@ -24,7 +24,7 @@ class Imgcompress{
     public function __construct($src, $targetWith=320, $percent=1)
     {
         $this->src = $src;
-        $this->targetWidth = 320;
+        $this->targetWidth = $targetWith;
         $this->percent = $percent;
     }
 

@@ -26,7 +26,7 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+ $app->withFacades();
 
  $app->withEloquent();// 开启注释后，可用与model DB 链接
 

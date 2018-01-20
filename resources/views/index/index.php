@@ -18,9 +18,9 @@
                         <div class="nav-set">
                             <div class="nav-login">
                                 <?php if ($login) { ?>
-                                    <a href="javascript:;" id="login-main">您好！<span><?php echo $login['uname']; ?></span></a>
+                                    <a href="<?php echo config('local')['website'].'/admin'; ?>" id="login-main">您好！<span><?php echo $login['uname']; ?></span></a>
                                 <?php  } else {?>
-                                    <a href="javascript:;" id="login-main">登录</a>
+                                    <a href="<?php echo config('local')['website'].'/login'; ?>" id="login-main">登录</a>
                                 <?php  }?>
                             </div>
                         </div>
@@ -113,9 +113,9 @@
 
     <!-- 这里是版权说明模块 -->
     <ul id="scroll">
-        <li><a class="scroll-home" href="<?php if ($login) { echo config('local')['website'].'/admin';}else{echo config('local')['website'].'/login';}?>" title="MY" rel="home"><i class="be">L</i></a></li>
-        <li><a class="scroll-h" title="返回顶部"><i class="be"><img src="/static/image/common/up16.png" style="width:24px;height:16px;" /></i></a></li>
-        <li class="qqonline" id="qqonline"><div class="online"><a href="javascript:void(0)"><i class="be be-qq"></i></a></div>
+        <li style="padding:0 0 5px;"><a style="width:36px;height:36px;" class="scroll-home" href="<?php if ($login) { echo config('local')['website'].'/admin';}else{echo config('local')['website'].'/login';}?>" title="MY" rel="home"><i class="be">L</i></a></li>
+        <li style="padding:0 0 5px;"><a style="width:36px;height:36px;" class="scroll-h" title="返回顶部"><i class="be"><img src="/static/image/common/up16.png" style="width:24px;height:16px;" /></i></a></li>
+        <li class="qqonline" id="qqonline" style="padding:0 0 5px;"><div class="online"><a href="javascript:void(0)" style="width:36px;height:36px;"><i class="be be-qq"></i></a></div>
             <div class="qqonline-box" style="display: none;" id="qqonline-box">
                 <div class="qqonline-main">
                     <div class="nline-wiexin">

@@ -4,11 +4,6 @@ namespace App\Models\Common;
 
 class Date {
 
-    /**
-     * 根据城市获取限行规则
-     * @param $city string 城市名
-     * @return array
-     */
     static public function getDateToString($date) {
         $compDate = strtotime($date);
         $nowDate = time();
@@ -32,5 +27,15 @@ class Date {
         }  else if ($cha >= 86400*30*365) {
             return intval($cha/(86400*30*365)).'年前';
         }
+    }
+
+    static public function getTip() {
+        $tip = '晚上好';
+        if (in_array(date('H'), ['06','07','08','09','10','11','12'])) {
+            $tip = '上午好';
+        } else if (in_array(date('H'), ['13','14','15','16','17','18'])) {
+            $tip = '下午好';
+        }
+        return $tip;
     }
 }
