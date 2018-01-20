@@ -19,6 +19,7 @@ $localConfig['nav'] = [
     'login' => '关于我 > 用户登录',
     'admin' => '后台管理 > 首页',
     'adminAddBaby' => '后台管理 > 添加宝宝',
+    'adminTip' => '后台管理 > 提示页'
 ];
 
 $localConfig['image_type'] = [

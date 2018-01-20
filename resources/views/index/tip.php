@@ -86,15 +86,15 @@ text-decoration: none;
 </style>
 <div class="content">
     <div class="content-form">
-        <?php echo $saveResult['msg']; ?>
-        <a href="<?php echo config('local')['website']; ?>/admin/addbaby"><span id="timer">3</span>秒后自动（或点击）跳转添加宝宝操作页</a>
+        <?php echo $msg; ?>
+        <a href="<?php echo $jumpUrl; ?>"><span id="timer">3</span>秒后自动（或点击）跳转到<?php echo $msg2; ?></a>
     </div>
 </div>
 <script type="text/javascript">
     function run(){
         var s = document.getElementById("timer");
         if(s.innerHTML == 0){
-            window.location.href='<?php echo config('local')['website']; ?>/admin/addbaby';
+            window.location.href='<?php echo $jumpUrl; ?>';
             return false;
         }
         s.innerHTML = s.innerHTML * 1 - 1;

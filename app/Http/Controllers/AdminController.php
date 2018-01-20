@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 class AdminController extends Controller
 {
+    private $sourceImagePre = 'S';
+
+    private $thumbnailImagePre = 'T';
 
     public function __construct() {
         parent::__contract();
@@ -16,7 +19,6 @@ class AdminController extends Controller
      */
     public function index()
     {
-
         if ($this->result['login']) {
 
             $tip = '晚上好';
@@ -96,8 +98,21 @@ class AdminController extends Controller
         }
 
         if (isset($_FILES['myfile'])) {
+
+            if (isset($_FILES["myfile"]["size"]) && $_FILES["myfile"]["size"] > 2097152) {
+                $result['code'] = 1011;
+                $result['msg'] = '上传图片尺寸不能大于2M';
+            }
+
+
             //获取图片的临时路径
             $image = $_FILES["myfile"]['tmp_name'];
+
+
+
+
+
+
             //只读方式打开图片文件
             $fp = fopen($image, "r");
             //读取文件（可安全用于二进制文件）
@@ -125,34 +140,62 @@ class AdminController extends Controller
             }
 
             if ($result['code'] == 0) {
-                $filename = 'B' . date('YmdHis') . '-' . rand(100, 999) . '.' . $imageEnd;
+
+
+                $randImageName = date('YmdHis') . '-' . rand(100, 999) . '.' . $imageEnd;
+
+                $filename = $this->sourceImagePre . $randImageName;
                 //新图片的路径
                 $newFilePath = $imgDir . $filename;
-                $data = $file;
 
-                $newFile = fopen($newFilePath, "w"); //打开文件准备写入
-                fwrite($newFile, $data); //写入二进制流到文件
-                fclose($newFile); //关闭文件
+                if ($imageEnd == 'jpg') {
+                    /***********图片旋转问题修正************/
+
+                    $image = imagecreatefromstring(file_get_contents($image));
+                    $exif = @exif_read_data($image);
+                    $orientation = $exif['Orientation'];
+                    switch ($orientation) {
+                        case 8://需要顺时针旋转90°
+                            $image = imagerotate($image, 90, 0);
+                            break;
+                        case 3://需要旋转180°
+                            $image = imagerotate($image, 180, 0);
+                            break;
+                        case 6: //需要逆时针旋转90°
+                            $image = imagerotate($image, -90, 0);
+                            break;
+                    }
+                    imagejpeg($image, $newFilePath);//将旋转后的图像保存到文件，$destination为图片路径。
+
+                    /***********************/
+                } else {
+
+                    $data = $file;
+                    $newFile = fopen($newFilePath, "w"); //打开文件准备写入
+                    fwrite($newFile, $data); //写入二进制流到文件
+                    fclose($newFile); //关闭文件
+                }
 
                 if (file_exists($newFilePath)) {
                     //保存到数据库
                     //$myImage = $relativePath . $filename;
                     $imgCompess = new \App\Models\Common\Imgcompress($newFilePath, 320);
 
-                    $sfilename = 'BS' . date('YmdHis') . '-' . rand(100, 999) . '.' . $imageEnd;
+                    $sfilename = $this->thumbnailImagePre.$randImageName;
                     $snewFilePath = $imgDir.$sfilename;
                     $imgCompess->compressImg($snewFilePath);
+
+                    $mySourceImage = $relativePath . $filename;
                     $myImage = $relativePath . $sfilename;
-                    $datas = [
-                        'title' => $title,
-                        'image' => $myImage,
-                        'ctime' => date('Y-m-d H:i:s', strtotime($mydate)),
-                        'utime' => date('Y-m-d H:i:s', strtotime($mydate)),
-                        'user_id' => $uid,
-                        'is_private' => $isPrivate,
-                    ];
                     $family = new \App\Models\Family\Family();
-                    $isSave = $family->saveData($datas);
+                    $family->title = $title;
+                    $family->image = $myImage;
+                    $family->source_image = $mySourceImage;
+                    $family->ctime = date('Y-m-d H:i:s', strtotime($mydate));
+                    $family->utime = date('Y-m-d H:i:s', strtotime($mydate));
+                    $family->user_id = $uid;
+                    $family->is_private = $isPrivate;
+                    $isSave = $family->save();
                     if ($isSave) {
                         $result['success'] = true;
                         $result['code'] = 0;
@@ -167,12 +210,16 @@ class AdminController extends Controller
             }
         }
 
-        $nav = config('local')['nav']['adminAddBaby'];
+
+        $nav = config('local')['nav']['adminTip'];
         $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
-        $this->result['data'] = ['saveResult' => $result];
-        $this->result['myview'] = 'index.admin.savetip';
+        if ($result['success']) {
+            $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '宝宝照片墙', 'jumpUrl' => config('local')['website'] . '/baby'];
+        } else {
+            $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '添加宝宝操作页', 'jumpUrl' => config('local')['website'] . '/admin/addbaby'];
+        }
+        $this->result['myview'] = 'index.tip';
         $this->result['navName'] = $nav;
         return view('index.index', $this->result);
-
     }
 }

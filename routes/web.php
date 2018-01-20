@@ -50,6 +50,10 @@ $router->post( 'login/verify', [
     'uses' => 'LoginController@verify',
 ] );
 
+$router->get( 'login/loginout', [
+    'uses' => 'LoginController@loginout',
+] );
+
 $router->get( '/admin', [
     'uses' => 'AdminController@index',
 ] );

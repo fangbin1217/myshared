@@ -30,29 +30,63 @@ class LoginController extends Controller
         if ($isLogin['success']) {
             $_SESSION['UID']=$isLogin['data']['uid'];
             $_SESSION['UNAME']=$isLogin['data']['name'];
-            //setcookie('user_id',$isLogin['data']['uid'],time()+(7200));
-            //setcookie('username',$isLogin['data']['name'],time()+(7200));
-
-            //跳转到首页
-            header('location:'.config('local')['website'].'/admin');
+            /*****记录登录信息******/
+            try {
+                $userLoginLog = new \App\Models\User\UserLoginLog();
+                $userLoginLog->user_id = $_SESSION['UID'];
+                $userLoginLog->type = $isLogin['data']['type'];
+                $userLoginLog->login_type = 1;
+                $getIP = \App\Models\Common\Agent::getIP();
+                $userLoginLog->lastip = $getIP;
+                $userLoginLog->user_agent = $_SERVER['HTTP_USER_AGENT'];
+                $userLoginLog->create_time = date('Y-m-d H:i:s');
+                $userLoginLog->save();
+            } catch (\Exception $E) {
+                //
+            }
+            //header('location:'.config('local')['website'].'/admin');
+            $this->result['data'] = ['msg' => '登录成功', 'msg2'=>'后台首页', 'jumpUrl' => config('local')['website'].'/admin'];
 
         } else {
-            $nav = config('local')['nav']['login'];
-            $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
-            $this->result['data'] = ['msg' => $isLogin['msg']];
-            $this->result['myview'] = 'index.loginverify';
-            $this->result['navName'] = $nav;
-            return view('index.index', $this->result);
+            $this->result['data'] = ['msg' => '登录失败', 'msg2'=>'登录页', 'jumpUrl' => config('local')['website'].'/login'];
         }
+
+        $nav = config('local')['nav']['adminTip'];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['myview'] = 'index.tip';
+        $this->result['navName'] = $nav;
+        return view('index.index', $this->result);
     }
 
-    public function admin() {
-        if (isset($this->result['login']) && $this->result['login']) {
-            print_r($this->result['login']);
-            echo '登录成功';
-        } else {
-            echo '登录失败';
+    public function loginout() {
+
+        /*****记录登录信息******/
+        try {
+            $userLoginLog = new \App\Models\User\UserLoginLog();
+            $userLoginLog->user_id = $_SESSION['UID'];
+            $userLoginLog->type = 3;
+            $userLoginLog->login_type = 2;
+            $getIP = \App\Models\Common\Agent::getIP();
+            $userLoginLog->lastip = $getIP;
+            $userLoginLog->user_agent = $_SERVER['HTTP_USER_AGENT'];
+            $userLoginLog->create_time = date('Y-m-d H:i:s');
+            $userLoginLog->save();
+        } catch (\Exception $E) {
+            //
         }
+        /*** 删除所有的session变量..也可用unset($_SESSION[xxx])逐个删除。****/
+        $_SESSION = array();
+        if (isset($_COOKIE[session_name()])) {
+            setcookie(session_name(), '', time()-42000, '/');
+        }
+        session_destroy();
+
+        $nav = config('local')['nav']['adminTip'];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['data'] = ['msg' => '退出成功', 'msg2'=>'首页', 'jumpUrl' => config('local')['website'].'/'];
+        $this->result['myview'] = 'index.tip';
+        $this->result['navName'] = $nav;
+        return view('index.index', $this->result);
 
     }
 }

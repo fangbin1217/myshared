@@ -61,7 +61,13 @@ class IndexController extends Controller
         $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
         $page = 1;
         $offset = ($page-1)*$this->limit;
-        $familyList = \App\Models\Family\Family::getList($offset, $this->limit);
+        if ($this->result['login'] && $this->result['login']['isAdmin']) {
+            $familyList = \App\Models\Family\Family::getList($offset, $this->limit);
+        } else {
+            $where = [];
+            $where['is_private'] = 0;
+            $familyList = \App\Models\Family\Family::getList($offset, $this->limit, $where);
+        }
         if ($familyList) {
             foreach ($familyList as $key=>$val) {
                 $randImage = \App\Models\Common\Image::randImage();
@@ -81,7 +87,13 @@ class IndexController extends Controller
         $page = isset($_GET['page']) ? $_GET['page'] : 2;
         if ($page > 1) {
             $offset = ($page - 1) * $this->limit;
-            $familyList = \App\Models\Family\Family::getList($offset, $this->limit);
+            if ($this->result['login'] && $this->result['login']['isAdmin']) {
+                $familyList = \App\Models\Family\Family::getList($offset, $this->limit);
+            } else {
+                $where = [];
+                $where['is_private'] = 0;
+                $familyList = \App\Models\Family\Family::getList($offset, $this->limit, $where);
+            }
             if ($familyList) {
                 foreach ($familyList as $key => $val) {
                     $randImage = \App\Models\Common\Image::randImage();

@@ -16,19 +16,8 @@ class Family extends Model {
      * @param $city string 城市名
      * @return array
      */
-    static public function getList($offset, $limit = 5, $state = 0) {
-        return ($model = Family::where("state", $state)->offset($offset)->limit($limit)->orderBy('utime','DESC')->get()) ? $model->toArray() : array();
-    }
-
-    public function saveData($datas) {
-        $result = 0;
-        $family = new Family();
-        if ($datas) {
-            foreach ($datas as $key=>$val) {
-                $family->$key = $val;
-            }
-            $result = $family->save( $datas );
-        }
-        return $result;
+    static public function getList($offset, $limit = 5, $where = []) {
+        $where['state'] = 0;
+        return ($model = Family::where($where)->offset($offset)->limit($limit)->orderBy('utime','DESC')->get()) ? $model->toArray() : array();
     }
 }

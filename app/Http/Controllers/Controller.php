@@ -37,7 +37,7 @@ class Controller extends BaseController
         if ($userAuth && $userAuth['certificate'] === md5($this->loginPre.$pwd)) {
             $result['success'] = true;
             $result['msg']= '登录成功';
-            $result['data'] = ['uid'=>$userAuth['user_id'], 'name'=>$userAuth['identifier']];
+            $result['data'] = ['uid'=>$userAuth['user_id'], 'name'=>$userAuth['identifier'], 'type'=>$userAuth['identity_type']];
         }
         return $result;
     }

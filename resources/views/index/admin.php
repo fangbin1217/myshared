@@ -27,7 +27,7 @@ background: #fff;
 }
 </style>
 <div class="content">
-    <div style="text-align: left;padding: 5px 10px 5px;color:#777;"><?php echo $loginInfo['uname'].','.$tip; ?></div>
+    <div style="text-align: left;padding: 5px 10px 5px;color:#777;"><?php echo $loginInfo['uname'].'，'.$tip; ?><a href="<?php echo config('local')['website']; ?>/login/loginout" style="float:right;padding: 0 10px;color:#777;">退出</a></div>
     <div class="content-form">
 
         <a href="javascrip:;">敬请期待！</a><br/>
