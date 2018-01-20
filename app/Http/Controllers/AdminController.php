@@ -149,10 +149,15 @@ class AdminController extends Controller
                 $newFilePath = $imgDir . $filename;
 
                 if ($imageEnd == 'jpg') {
+
+                    $data = $file;
+                    $newFile = fopen($newFilePath, "w"); //打开文件准备写入
+                    fwrite($newFile, $data); //写入二进制流到文件
+                    fclose($newFile); //关闭文件
                     /***********图片旋转问题修正************/
 
                     $image = imagecreatefromstring(file_get_contents($image));
-                    $exif = @exif_read_data($image);
+                    $exif = @exif_read_data($newFilePath);
                     $orientation = $exif['Orientation'];
                     switch ($orientation) {
                         case 8://需要顺时针旋转90°
