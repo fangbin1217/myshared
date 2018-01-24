@@ -86,21 +86,27 @@ text-decoration: none;
 </style>
 <div class="content">
     <div class="content-form">
-        <form method="post" action="<?php echo config('local')['website']; ?>/login/verify">
+        <form method="post" action="<?php echo config('local')['website']; ?>/register/verify">
             <div id="change_margin_1">
                 <input class="user" type="text" name="name" placeholder="请输入用户名" />
+                </br>
+                <span style="color:#ff7f50;font-size:13px;">用户名为数字字母加下划线组合，且不小于6位</span>
             </div>
             <!-- input的value为空时弹出提醒 -->
             <p id="remind_1"></p>
             <div id="change_margin_2">
                 <input class="password" type="password" name="pwd" placeholder="请输入密码" />
+                </br>
+                <span style="color:#ff7f50;font-size:13px;">密码为数字字母加下划线组合，且不小于6位</span>
+            </div>
+            <div id="change_margin_2">
+                <input class="password" type="password" name="pwdAgain" placeholder="请再输入一次密码" />
             </div>
             <!-- input的value为空时弹出提醒 -->
             <p id="remind_2"></p>
             <div id="change_margin_3">
-                <input class="content-form-signup" type="submit" value="登录" />
+                <input class="content-form-signup" type="submit" value="注册" />
             </div>
-            <div><a href="<?php echo config('local')['website']; ?>/register">没有账号，马上注册</a></div>
         </form>
     </div>
     <!--<div class="content-login-description">没有账户？</div>

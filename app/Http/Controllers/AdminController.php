@@ -95,9 +95,9 @@ class AdminController extends Controller
 
         if (isset($_FILES['myfile'])) {
 
-            if (isset($_FILES["myfile"]["size"]) && $_FILES["myfile"]["size"] > 2097152) {
+            if (isset($_FILES["myfile"]["size"]) && $_FILES["myfile"]["size"] > 3145728) {
                 $result['code'] = 1011;
-                $result['msg'] = '上传图片尺寸不能大于2M';
+                $result['msg'] = '上传图片尺寸不能大于3M';
             }
 
 
@@ -272,9 +272,9 @@ class AdminController extends Controller
 
         if (isset($_FILES['myfile'])) {
 
-            if (isset($_FILES["myfile"]["size"]) && $_FILES["myfile"]["size"] > 2097152) {
+            if (isset($_FILES["myfile"]["size"]) && $_FILES["myfile"]["size"] > 3145728) {
                 $result['code'] = 1011;
-                $result['msg'] = '上传图片尺寸不能大于2M';
+                $result['msg'] = '上传图片尺寸不能大于3M';
             }
 
 
@@ -306,6 +306,11 @@ class AdminController extends Controller
                 $result['msg'] = '图片格式非法，仅支持JPG,PNG,GIF';
             }
 
+            $TravelCount = \App\Models\Travel\Travel::whereRaw('state in(0,2) and user_id = ?', [$uid])->count();
+            if ($TravelCount >= 20 && !$this->result['login']['isAdmin']) {
+                $result['code'] = 1021;
+                $result['msg'] = '您只能分享二十次旅行记录噢';
+            }
             if ($result['code'] == 0) {
 
 
@@ -462,9 +467,9 @@ class AdminController extends Controller
 
         if (isset($_FILES['myfile'])) {
 
-            if (isset($_FILES["myfile"]["size"]) && $_FILES["myfile"]["size"] > 2097152) {
+            if (isset($_FILES["myfile"]["size"]) && $_FILES["myfile"]["size"] > 3145728) {
                 $result['code'] = 1011;
-                $result['msg'] = '上传图片尺寸不能大于2M';
+                $result['msg'] = '上传图片尺寸不能大于3M';
             }
 
 
@@ -612,7 +617,7 @@ class AdminController extends Controller
         if ($isUpd) {
             $this->result['data'] = ['msg' => '审核成功', 'msg2' => '旅行查看页', 'jumpUrl' => config('local')['website'] . '/admin/look/'.$id];
         } else {
-            $this->result['data'] = ['msg' => '审核失败', 'msg2' => '旅行查看页', 'jumpUrl' => config('local')['website'.'/admin/look/'.$id] . '/admin/addtraveldetail/'.$travelId];
+            $this->result['data'] = ['msg' => '审核失败', 'msg2' => '旅行查看页', 'jumpUrl' => config('local')['website'] . '/admin/look/'.$id];
         }
         $this->result['myview'] = 'index.tip';
         $this->result['navName'] = $nav;

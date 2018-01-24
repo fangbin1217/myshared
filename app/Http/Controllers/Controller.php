@@ -6,7 +6,7 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    private $loginPre = 'FB';
+    protected $loginPre = 'FB';
 
     protected $result = [];
 

@@ -16,11 +16,12 @@ $localConfig['nav'] = [
     'resume' => '关于我 > 个人简介',
     'baby' => '关于我 > 宝宝成长',
     'travel' => '旅游分享 > 浪迹天涯',
-    'login' => '关于我 > 用户登录',
     'admin' => '后台管理 > 首页',
     'adminAddBaby' => '后台管理 > 添加宝宝',
     'adminTip' => '后台管理 > 提示页',
     'adminMyTravel' => '后台管理 > 我的旅行',
+    'login' => '用户管理 > 登录',
+    'register' => '用户管理 > 注册',
 ];
 
 $localConfig['image_type'] = [

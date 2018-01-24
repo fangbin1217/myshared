@@ -9,7 +9,7 @@ class UserAuth extends Model {
 
     protected  $primaryKey = "id";
 
-    //public $timestamps = false;
+    public $timestamps = false;
 
     /**
      * 根据城市获取限行规则

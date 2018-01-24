@@ -46,6 +46,14 @@ $router->get( '/login', [
     'uses' => 'LoginController@index',
 ] );
 
+$router->get( '/register', [
+    'uses' => 'RegisterController@index',
+] );
+
+$router->post( 'register/verify', [
+    'uses' => 'RegisterController@verify',
+] );
+
 $router->post( 'login/verify', [
     'uses' => 'LoginController@verify',
 ] );
