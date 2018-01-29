@@ -4,18 +4,47 @@ namespace App\Http\Controllers;
 
 class TravelController extends Controller
 {
-    private $limit = 3;
+    private $limit = 5;
 
     public function __construct() {
         parent::__contract();
     }
+
+
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function index($id)
+    public function index()
+    {
+        $travelList = \App\Models\Travel\Travel::getList();
+        if ($travelList) {
+            foreach ($travelList as $key=>$val) {
+                $travelList[$key]['tagName'] = '';
+                $travelList[$key]['content'] = mb_substr($val['content'], 0, 70, 'utf-8').'..';
+
+                if (isset(config('local')['travel_tag'][$val['tag']])) {
+                    $travelList[$key]['tagName'] = config('local')['travel_tag'][$val['tag']];
+                }
+
+                $travelList[$key]['indexImage'] = config('local')['website'].'/'.$val['index_image'];
+
+                $travelList[$key]['utime'] = \App\Models\Common\Date::getDateToString($val['utime']);
+
+                $travelList[$key]['travelLink'] = config('local')['website'].'/travel/detail/'.$val['id'];
+            }
+        }
+        $this->result['navName'] = config('local')['nav']['travel'];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['data'] = ['travelList' => $travelList];
+        $this->result['myview'] = 'index.travel.index';
+        return view('index.index', $this->result);
+
+    }
+
+    public function detail($id)
     {
         $nav = config('local')['nav']['travel'];
         $page = 1;
@@ -34,12 +63,6 @@ class TravelController extends Controller
         $this->result['myview'] = 'index.travel.detail';
         $this->result['navName'] = $nav;
         return view('index.index', $this->result);
-
-    }
-
-    public function detail($id)
-    {
-
     }
 
     public function more() {

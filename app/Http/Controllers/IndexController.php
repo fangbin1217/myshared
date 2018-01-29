@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Common\Agent;
 
 /**
  * 首页入口
@@ -22,26 +23,34 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $travelList = \App\Models\Travel\Travel::getList();
-        if ($travelList) {
-            foreach ($travelList as $key=>$val) {
-                $travelList[$key]['tagName'] = '';
-                $travelList[$key]['content'] = mb_substr($val['content'], 0, 70, 'utf-8').'..';
-
-                if (isset(config('local')['travel_tag'][$val['tag']])) {
-                    $travelList[$key]['tagName'] = config('local')['travel_tag'][$val['tag']];
-                }
-
-                $travelList[$key]['indexImage'] = config('local')['website'].'/'.$val['index_image'];
-
-                $travelList[$key]['utime'] = \App\Models\Common\Date::getDateToString($val['utime']);
-
-                $travelList[$key]['travelLink'] = config('local')['website'].'/travel/index/'.$val['id'];
+        $city = '';
+        $ip = Agent::getIP();
+        $cityUrl = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json';
+        $cityResult = $this->curl($cityUrl);
+        if ($cityResult) {
+            $cityList = @json_decode($cityResult , true);
+            if ($cityList && isset($cityList['city'])) {
+                $city = $cityList['city'];
             }
         }
-        //$user = User::getUserById(1);
+        //$city = '北京';
+        $weathers = [];
+        if ($city) {
+
+            $url = 'http://www.sojson.com/open/api/weather/json.shtml?city='.$city;
+            $result = $this->curl($url);
+            if ($result) {
+                $datasList = @json_decode($result, true);
+                if ($datasList['status'] == 200 && isset($datasList['data']['forecast'])) {
+                    $weathers = $datasList['data']['forecast'];
+                }
+            }
+
+        }
+
+
         $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
-        $this->result['data'] = ['travelList' => $travelList];
+        $this->result['data'] = ['IP' => $ip, 'myCity'=>$city, 'weathers' => $weathers];
         $this->result['myview'] = 'index.index.welcome';
         return view('index.index', $this->result);
 
@@ -50,7 +59,6 @@ class IndexController extends Controller
     public function resume()
     {
         $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
-        //$this->result['data'] = ['article1'=>'杭州西湖'];
         $this->result['myview'] = 'index.about.resume';
         $this->result['navName'] = config('local')['nav']['resume'];
         return view('index.index', $this->result);
@@ -104,5 +112,19 @@ class IndexController extends Controller
             }
         }
         return json_encode($result, JSON_UNESCAPED_UNICODE);
+    }
+
+    private function curl($url){
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_REFERER, 'http://www.weather.com.cn/forecast/index.shtml');//必须滴
+        //curl_setopt($ch, CURLOPT_COOKIE,'isexist=1');//最好带上 比较稳定
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0');
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        $data = curl_exec($ch);
+        curl_close($ch);
+        return $data;
     }
 }

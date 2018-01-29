@@ -33,9 +33,12 @@ $router->get( '/babymore', [
     'uses' => 'IndexController@more',
 ] );
 
-
-$router->get( 'travel/index/{id}', [
+$router->get( '/travel', [
     'uses' => 'TravelController@index',
+] );
+
+$router->get( 'travel/detail/{id}', [
+    'uses' => 'TravelController@detail',
 ] );
 
 $router->get( '/travelmore', [

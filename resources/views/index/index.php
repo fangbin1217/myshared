@@ -44,7 +44,7 @@
                             <div class="menu-menu-container"><ul id="menu-menu" class="down-menu nav-menu"><li id="menu-item-481" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-481"><a title="花好月圆的个人经验" href="<?php echo config('local')['website']; ?>/">首页</a></li>
                                     <li id="menu-item-12" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-12"><a title="旅行分享的个人经验！" href="javascript:;">旅行分享</a>
                                         <ul class="sub-menu">
-                                            <li id="menu-item-4141" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4141"><a href="javascript:;">浪迹天涯</a></li>
+                                            <li id="menu-item-4141" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4141"><a href="<?php echo config('local')['website']; ?>/travel">浪迹天涯</a></li>
                                         </ul>
                                     </li>
                                     <li id="menu-item-3673" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-3673"><a href="javascript:;">关于我</a>
@@ -71,8 +71,16 @@
         <div class="bull"><i class="be"><img src="static/image/common/speaker16.png"/></i></div><div id="scrolldiv">
             <div class="scrolltext" >
                 <ul>
-                    <li class="scrolltext-title"><a href="javascript:;" rel="bookmark" style="color:#777;">关于信息规范化要求的通知</a></li>
+                    <?php if (isset($data['weathers'])) { ?>
+                    <?php foreach ($data['weathers'] as $mywea) { ?>
+                        <li class="scrolltext-title"><a href="javascript:;" rel="bookmark" style="color:#777;font-size:13px;">
+                                <?php echo $mywea['date'].' '.$mywea['type'].' '.$mywea['high'].' '.$mywea['low'].' '.$mywea['fx'].' '.$mywea['fl'];?>
+                            </a></li>
+                        <?php }?>
+                    <?php  } else { ?>
+                    <li class="scrolltext-title"><a href="javascript:;" rel="bookmark" style="color:#777;">关于信息规范化要求的通知1</a></li>
                     <li class="scrolltext-title"><a href="javascript:;" rel="bookmark" style="color:#777;">关于信息规范化要求的通知2</a></li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>
