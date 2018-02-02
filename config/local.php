@@ -16,6 +16,7 @@ $localConfig['nav'] = [
     'resume' => '关于我 > 个人简介',
     'baby' => '关于我 > 宝宝成长',
     'travel' => '旅游分享 > 浪迹天涯',
+    'articleBabyStory' => '文章分类 > 宝宝故事',
     'admin' => '后台管理 > 首页',
     'adminAddBaby' => '后台管理 > 添加宝宝',
     'adminTip' => '后台管理 > 提示页',

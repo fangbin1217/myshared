@@ -41,10 +41,16 @@
                         <div id="sidr-menu"><div class="toggle-sidr-menu">MENU</a></div></div>
                         <nav id="site-nav" class="main-nav">
                             <a href="#sidr-main" id="navigation-toggle" class="bars" ><i class="be be-menu"></i></a>
-                            <div class="menu-menu-container"><ul id="menu-menu" class="down-menu nav-menu"><li id="menu-item-481" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-481"><a title="花好月圆的个人经验" href="<?php echo config('local')['website']; ?>/">首页</a></li>
+                            <div class="menu-menu-container"><ul id="menu-menu" class="down-menu nav-menu">
+                                    <li id="menu-item-481" class="menu-item menu-item-type-custom menu-item-object-custom current-menu-item current_page_item menu-item-home menu-item-481"><a title="花好月圆的个人经验" href="<?php echo config('local')['website']; ?>/">首页</a></li>
                                     <li id="menu-item-12" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-12"><a title="旅行分享的个人经验！" href="javascript:;">旅行分享</a>
                                         <ul class="sub-menu">
                                             <li id="menu-item-4141" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4141"><a href="<?php echo config('local')['website']; ?>/travel">浪迹天涯</a></li>
+                                        </ul>
+                                    </li>
+                                    <li  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-12"><a title="宝宝的个人经验！" href="javascript:;">文章分类</a>
+                                        <ul class="sub-menu">
+                                            <li  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4141"><a href="<?php echo config('local')['website']; ?>/article/babystory">宝宝故事</a></li>
                                         </ul>
                                     </li>
                                     <li id="menu-item-3673" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-3673"><a href="javascript:;">关于我</a>
