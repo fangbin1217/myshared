@@ -80,7 +80,7 @@
                     <?php if (isset($data['weathers'])) { ?>
                     <?php foreach ($data['weathers'] as $mywea) { ?>
                         <li class="scrolltext-title"><a href="javascript:;" rel="bookmark" style="color:#777;font-size:13px;">
-                                <?php echo $mywea['date'].' '.$mywea['type'].' '.$mywea['high'].' '.$mywea['low'].' '.$mywea['fx'].' '.$mywea['fl'];?>
+                                <?php echo $mywea['date'].$mywea['type'].$mywea['high'].$mywea['low'].$mywea['fx'].$mywea['fl'];?>
                             </a></li>
                         <?php }?>
                     <?php  } else { ?>

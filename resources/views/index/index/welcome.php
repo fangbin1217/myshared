@@ -1,23 +1,47 @@
-<main id="main" class="site-main" role="main">
-                <div class="orderby"><ul><li class="order"><a href="javascript:void(0)" title="文章排序"><i class="be be-sort"></i></a></li></ul><ul class="order-box"><li><a href="javascript:;" rel="nofollow" title="按日期排序"><i class="be be-calendar2"></i></a></li><li><a href="javascript:;" rel="nofollow" title="随机排序"><i class="be be-repeat"></i></a></li><li><a href="javascript:;" rel="nofollow" title="按评论排序"><i class="be be-speechbubble"></i></a></li><li><a href="javascript:;" rel="nofollow" title="按浏览排序"><i class="be be-eye"></i></a></li><li><a href="javascript:;" rel="nofollow" title="按点赞排序"><i class="be be-thumbs-up"></i></a></li></ul></div>
-                <article id="post-6260" class="wow fadeInUp post-6260 post type-post status-publish format-standard hentry category-wzjs tag-1935 tag-29 tag-1960 tag-1961 tag-716 dfl" data-wow-delay="0.3s">
-                    <figure class="thumbnail">
-                        <a href="javascript:;">当前城市：<span id="myCity"><?php echo $myCity;?></span></a> <span class="cat"><a href="javascript:;"></a></span>
-                    </figure>
-                    <header class="entry-header">
-                        <h2 class="entry-title"><a href="javascript:;" rel="bookmark"></a></h2> </header>
-                    <div class="entry-content">
-                            欢迎来到花好月圆的主页
-                        <div class="clear"></div>
-                    </div>
-                </article>
 
-</main>
+    <a href="javascript:;">当前城市：<span id="myCity"><?php echo $myCity;?></span></a> <span class="cat"><a href="javascript:;"></a></span>
+    <div id="tree">
+    </div>
+
 <script>
-    $(function(){
 
 
-    });
+    var canvas = document.createElement("canvas");
+    var ctx = canvas.getContext("2d");
+    canvas.width = 640;
+    canvas.height = 480;
+    document.getElementById('tree').appendChild(canvas);
 
+    var drawTree = function (ctx, startX, startY, length, angle, depth, branchWidth){
+        var rand = Math.random,
+            newLength, newAngle, newDepth, maxBranch = 3,
+            endX, endY, maxAngle = 2 * Math.PI / 4,
+            subBraches;
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        endX = startX + length * Math.cos(angle);
+        endY = startY + length * Math.sin(angle);
+        ctx.lineCap = 'round';
+        ctx.lineWidth = branchWidth;
+        ctx.lineTo(endX, endY);
+        if (depth <= 2){
+            ctx.strokeStyle = 'rgb(0,' + (((rand() * 64) + 128) >> 0) + ',0)';
+        } else {
+            ctx.strokeStyle = 'rgb(' + (((rand() * 64) + 64) >> 0) + ',50,25)';
+        }
+        ctx.stroke();
+        newDepth = depth - 1;
+        if (!newDepth)
+            return;
+        subBranches = (rand() * (maxBranch - 1)) + 1;
+        branchWidth *= 0.7;
+        for (var i = 0; i < subBranches; i++){
+            newAngle = angle + rand() * maxAngle - maxAngle * 0.5;
+            newLength = length * (0.7 + rand() * 0.3);
+            drawTree(ctx, endX, endY, newLength, newAngle, newDepth, branchWidth);
+        }
+    }
+
+    drawTree(ctx, 160, 430, 60, -Math.PI / 2, 12, 12);
 
 </script>

@@ -23,31 +23,52 @@ class IndexController extends Controller
      */
     public function index()
     {
+        $datas = [];
         $city = '';
-        $ip = Agent::getIP();
-        $cityUrl = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json';
-        $cityResult = $this->curl($cityUrl);
-        if ($cityResult) {
-            $cityList = @json_decode($cityResult , true);
-            if ($cityList && isset($cityList['city'])) {
-                $city = $cityList['city'];
-            }
-        }
-        //$city = '北京';
         $weathers = [];
-        if ($city) {
+        $ip = Agent::getIP();
+        $fileName = 'W'.ip2long($ip).'.txt';
+        $storageLog = $_SERVER['DOCUMENT_ROOT'].'/storage/logs';
+        $logDate = $storageLog.'/'.date('Ymd');
 
-            $url = 'http://www.sojson.com/open/api/weather/json.shtml?city='.$city;
-            $result = $this->curl($url);
-            if ($result) {
-                $datasList = @json_decode($result, true);
-                if ($datasList['status'] == 200 && isset($datasList['data']['forecast'])) {
-                    $weathers = $datasList['data']['forecast'];
+        $weathersFile = $logDate.'/'.$fileName;
+        if (file_exists($weathersFile)) {
+            $weathersJson = file_get_contents($weathersFile);
+            $datas = json_decode($weathersJson, true);
+            $city = $datas['city'];
+            $weathers = $datas['weathers'];
+        } else {
+            //先获取城市名称
+            $cityUrl = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json';
+            $cityResult = $this->curl($cityUrl);
+            if ($cityResult) {
+                $cityList = @json_decode($cityResult, true);
+                if ($cityList && isset($cityList['city'])) {
+                    $city = $cityList['city'];
+                    $datas['city'] = $city;
                 }
             }
-
+            //在根据城市名称获取天气
+            if ($city) {
+                $url = 'http://www.sojson.com/open/api/weather/json.shtml?city=' . $city;
+                $result = $this->curl($url);
+                if ($result) {
+                    $datasList = @json_decode($result, true);
+                    if ($datasList['status'] == 200 && isset($datasList['data']['forecast'])) {
+                        $datas['weathers'] = $datasList['data']['forecast'];
+                    }
+                }
+            }
+            if ($datas) {
+                if (!is_dir($logDate)) {
+                    mkdir($logDate, 0777);
+                    chmod($logDate, 0777);
+                    $f = fopen($weathersFile, 'w');
+                    fwrite($f, json_encode($datas, JSON_UNESCAPED_UNICODE));
+                    fclose($f);
+                }
+            }
         }
-
 
         $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
         $this->result['data'] = ['IP' => $ip, 'myCity'=>$city, 'weathers' => $weathers];

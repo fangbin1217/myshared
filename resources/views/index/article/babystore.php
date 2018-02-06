@@ -3,7 +3,7 @@
     <?php if ($list) {?>
     <article id="post-6260" class="wow fadeInUp post-6260 post type-post status-publish format-standard hentry category-wzjs tag-1935 tag-29 tag-1960 tag-1961 tag-716 dfl" data-wow-delay="0.3s" >
                     <figure>
-                        <a href="javascript:;" style="color: rgb(255, 102, 0);font-weight: bold;font-size:18px;">    <?php echo $list['title'];?>&nbsp;<a style="float:right;font-size:18px;folor:#765;" href="<?php echo config('local')['website'].'/article/babystory?rand=1'; ?>">换一个</a></a>
+                        <a href="javascript:;" style="color: rgb(255, 102, 0);font-weight: bold;font-size:18px;">    <?php echo $list['title'];?>&nbsp;<a style="float:right;font-size:18px;folor:#765;" href="<?php echo config('local')['website'].'/article/babystory?rand='.$list['id']; ?>">换一个</a></a>
                     </figure>
                     <div class="entry-content" style="color:#777;font-size:18px;">
                         <?php echo $list['content'];?>

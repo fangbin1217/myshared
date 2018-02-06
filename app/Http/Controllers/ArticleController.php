@@ -22,15 +22,19 @@ class ArticleController extends Controller
         $isRand = isset($_GET['rand']) ? $_GET['rand'] : '';
 
         if (!$isRand) {
-            $list = ($model = Article::orderBy('ctime', 'DESC')->offset(0)->limit(1)->get()) ? $model->toArray() : array();
+            $list = ($model = Article::orderBy('id', 'DESC')->offset(0)->limit(1)->get()) ? $model->toArray() : array();
             $list2 = [];
             if ($list) {
                 $list2 = $list[0];
             }
         } else {
             $count = Article::count();
-            $id = rand(2, $count);
-            $list2 = Article::find($id);
+            if ($isRand < $count) {
+                $isRand++;
+            } else {
+                $isRand = 1;
+            }
+            $list2 = Article::find($isRand);
         }
         $this->result['navName'] = config('local')['nav']['articleBabyStory'];
         $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
