@@ -56,6 +56,7 @@ class IndexController extends Controller
                     $datasList = @json_decode($result, true);
                     if ($datasList['status'] == 200 && isset($datasList['data']['forecast'])) {
                         $datas['weathers'] = $datasList['data']['forecast'];
+                        $weathers = $datas['weathers'];
                     }
                 }
             }
