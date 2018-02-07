@@ -24,7 +24,7 @@ class IndexController extends Controller
     public function index()
     {
         $datas = [];
-        $city = '';
+        $city = 'HZ';
         $weathers = [];
         $ip = Agent::getIP();
         $fileName = 'W'.ip2long($ip).'.txt';
