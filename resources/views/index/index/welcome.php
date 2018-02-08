@@ -12,7 +12,7 @@
     </div>
 </div>
 <script>
-
+$(function(){
     /*
 
      Shape Shifter
@@ -81,8 +81,10 @@
             },
 
             adjustCanvas: function () {
-                canvas.width = window.innerWidth;
+                //canvas.width = window.innerWidth;
+                canvas.width = document.getElementById('primary').offsetWidth;
                 canvas.height = window.innerHeight;
+                //canvas.height = document.getElementById('primary').offsetHeight;
             },
 
             clearFrame: function () {
@@ -675,5 +677,5 @@
 
 
     S.init();
-
+});
 </script>
