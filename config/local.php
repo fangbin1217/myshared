@@ -17,6 +17,7 @@ $localConfig['nav'] = [
     'baby' => '关于我 > 宝宝成长',
     'travel' => '旅游分享 > 浪迹天涯',
     'articleBabyStory' => '文章分类 > 宝宝故事',
+    'articleStudy' => '文章分类 > 学习心得',
     'admin' => '后台管理 > 首页',
     'adminAddBaby' => '后台管理 > 添加宝宝',
     'adminTip' => '后台管理 > 提示页',

@@ -41,6 +41,10 @@ $router->get( '/article/babystory', [
     'uses' => 'ArticleController@babystory',
 ] );
 
+$router->get( '/article/study', [
+    'uses' => 'ArticleController@study',
+] );
+
 $router->get( 'travel/detail/{id}', [
     'uses' => 'TravelController@detail',
 ] );

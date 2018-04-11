@@ -50,6 +50,7 @@
                                     </li>
                                     <li  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-item-12"><a title="宝宝的个人经验！" href="javascript:;">文章分类</a>
                                         <ul class="sub-menu">
+                                            <li  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4141"><a href="<?php echo config('local')['website']; ?>/article/study">学习心得</a></li>
                                             <li  class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-4141"><a href="<?php echo config('local')['website']; ?>/article/babystory">宝宝故事</a></li>
                                         </ul>
                                     </li>

@@ -43,4 +43,15 @@ class ArticleController extends Controller
         return view('index.index', $this->result);
 
     }
+
+    public function study()
+    {
+
+        $this->result['navName'] = config('local')['nav']['articleStudy'];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['data'] = ['list' => []];
+        $this->result['myview'] = 'index.article.study';
+        return view('index.index', $this->result);
+
+    }
 }

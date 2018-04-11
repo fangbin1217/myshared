@@ -29,8 +29,8 @@
                             </form>
                             <h2 class="name">方斌 <i class="fz-resume fz-male"></i></h2>
                             <div class="info-labels">
-                                <p class="row-base"><span class="label-text"><i class="fz-resume fz-experience"></i>7年工作经验</span><em class="vline"></em><span class="label-text"><i class="fz-resume fz-degree"></i>本科学历</span> <em class="vline"></em><span class="label-text"><i class="fz-resume fz-status"></i>离职-随时到岗</span></p>
-                                <p class="row-contact"><span class="label-text"><i class="fz-resume fz-tel"></i>1xx xxxx xxxx</span></p>
+                                <p class="row-base"><span class="label-text"><i class="fz-resume fz-experience"></i>7年工作经验</span><em class="vline"></em><span class="label-text"><i class="fz-resume fz-degree"></i>本科学历</span> <em class="vline"></em><span class="label-text"><i class="fz-resume fz-status"></i>在职 一周以内到岗</span></p>
+                                <p class="row-contact"><span class="label-text"><i class="fz-resume fz-tel"></i>188 xxxx 0207</span></p>
                             </div>
                         </div>
                         <div class="item-form"></div>
@@ -91,6 +91,19 @@
 
                                     </div>
 
+
+                                    <div class="text">
+                                        <h4>
+
+                                            <span>SHELL</span>
+
+                                            <span>PHP7</span>
+
+                                            <span>REDIS</span>
+
+                                        </h4>
+                                    </div>
+
                                 </div>
 
                                 <div class="history-item" id="row-e02e971bfb41fdd33n162Nm1GA~~">
@@ -104,6 +117,15 @@
                                             <p>在该公司，作为php软件工程师主要负责的工作有：<br/>1. 汽车数据爬取（如汽车零部件、车管所违章数据），验证码破解，为车务提供基础数据支持。违章系统开发及日常线上维护（现有900万左右车辆信息，1800万左右违章信息）。<br/>2. 高并发服务器优化，缓存策略调整，保证车主数据实时更新（案例：在服务器优化前，我们只有7台服务器，只是做了简单的nginx分发，1台做为反向代理服务器，6台并行；优化后，其中4台做为后端服务器，前2台当做前端服务器，其中前端两台服务器做了redis主从配置，从日均访问量15万提升到25万）。<br/>3. 大数据下DB优化变更，当表数据量达到一定量级别，需要变更表结构时，不能直接简单的ALTER语句操作，需要工具化处理，如使用pt-online-schema-change。<br/>4.团队合作模块化管理，并为组内及组外提供工具化支持（案例：在做汽车项目时，就区分汽车基础业务和汽车违章业务，不同业务做为不同模块来开发，保证业务的边界清晰；工具化管理，我在测试某个省份违章准确度时，发现大量重复工作，为了避免此类问题，在后台做了相关的服务工具，给公司测试组人员带来工作效率的提升）。</p>
                                         </div>
 
+                                        <div class="text">
+                                            <h4>
+
+                                                <span>MYSQL</span>
+                                                <span>LINUX</span>
+                                                <span>APACHE-JMETER</span>
+
+                                            </h4>
+                                        </div>
 
                                     </div>
 
@@ -120,17 +142,16 @@
                                             <p>1. 房产广告投放开发，管理各个开发商定时定点投放的广告，并后台制定相应的规则，管理广告的上下架及投放时间，网址：http://www.kfw001.com。<br/>2. 房产促销摇奖小游戏开发，如刮刮乐、大转盘（flash前端），在各个楼盘开盘前做促销活动，签到免费摇奖，吸引用户参与并收集客户信息。<br/>3. 看房报名活动开发，根据用户报名信息，组队安排看房路线，并推荐附近或用户感兴趣楼盘。</p>
                                         </div>
 
+                                        <div class="text">
+                                            <h4>
 
-                                    </div>
+                                                <span>JQUERY</span>
 
-                                    <div class="text">
-                                        <h4>
+                                                <span>JS</span>
 
-                                            <span>JS</span>
+                                            </h4>
+                                        </div>
 
-                                            <span>PHP</span>
-
-                                        </h4>
                                     </div>
 
                                 </div>
@@ -152,7 +173,7 @@
                                     <div class="text">
                                         <h4>
 
-                                            <span>JS</span>
+                                            <span>HTML5</span>
 
                                             <span>PHP</span>
 
@@ -180,6 +201,9 @@
 
                                             <span>PHP</span>
 
+                                            <span>HTML</span>
+
+                                            <span>CSS</span>
                                         </h4>
                                     </div>
 
@@ -228,8 +252,8 @@
                             <h3 class="title">其它
                             </h3>
                             <div class="social-account">
-                                我的个人网站：<a href="http://www.myshared.top">http://www.myshared.top</a><br/>
-                                我的GIT：https://github.com/fangbin1217
+                                个人网站：<a href="http://www.myshared.top">http://www.myshared.top</a><br/>
+                                GIT：<a href="https://github.com/fangbin1217">https://github.com/fangbin1217</a>
                             </div>
                         </div>
                         <div class="item-form"></div>
