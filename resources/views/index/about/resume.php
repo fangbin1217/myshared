@@ -14,7 +14,7 @@
     <div  class="inner">
         <div class="job-box">
             <div class="resume">
-                <div class="update-time">最后更新 2017.12.07 18:19</div>
+                <div class="update-time">最后更新 2018.04.11 18:19</div>
                 <div class="resume-box">
                     <div class="resume-item" id="resume-userinfo">
                         <div class="item-primary">
@@ -72,6 +72,26 @@
                             </h3>
                             <div class="history-project">
 
+                                <div class="history-item" id="row-e02e971bfb41fdd33n162Nm1GA~~">
+                                    <span class="period">2017.12-至今</span>
+                                    <h4 class="name">杭州祺翼信息科技有限公司</h4>
+                                    <div class="text">
+                                        <h4>技术部<em class="vline"></em>PHP主管</h4>
+
+                                        <div class="text">
+                                            <h4>工作内容</h4>
+                                            <p>
+                                                1.并发优化-在接口存在并发时，为了过滤重复数据，防止当俩进程同时读到发现锁超时，都去释放锁，相互覆盖，则俩进程同时获得锁，仍并发执行业务代码。通过redis来设置锁，使用（setnx+getset）来实现<br/>
+                                                2.性能优化-在做消费任务时，通过写shell脚本来控制PHP进程数，保证程序正常且可控的运行<br/>
+                                                3.日志分析记录-在做银行回调时，为了排查问题，将日志异步按月归档，方便异常时排查及恢复数据，如存入数据库，命名：table_name_log201804<br/>
+                                                4.工作安排-将产品工作合理分解，并编写任务分解文档，细化工作，落实到每个负责人，相互协作
+                                            </p>
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
 
                                 <div class="history-item" id="row-e02e971bfb41fdd33n162Nm1GA~~">
                                     <span class="period">2015.04-2017.07</span>
@@ -208,7 +228,8 @@
                             <h3 class="title">其它
                             </h3>
                             <div class="social-account">
-
+                                我的个人网站：<a href="http://www.myshared.top">http://www.myshared.top</a><br/>
+                                我的GIT：https://github.com/fangbin1217
                             </div>
                         </div>
                         <div class="item-form"></div>

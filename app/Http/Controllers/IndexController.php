@@ -35,8 +35,12 @@ class IndexController extends Controller
         if (file_exists($weathersFile)) {
             $weathersJson = file_get_contents($weathersFile);
             $datas = json_decode($weathersJson, true);
-            $city = $datas['city'];
-            $weathers = $datas['weathers'];
+            if (isset($datas['city'])) {
+                $city = $datas['city'];
+            }
+            if (isset($datas['weathers'])) {
+                $weathers = $datas['weathers'];
+            }
         } else {
             //先获取城市名称
             $cityUrl = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json';
