@@ -77,17 +77,8 @@
 
         <div class="bull"><i class="be"><img src="static/image/common/speaker16.png"/></i></div><div id="scrolldiv">
             <div class="scrolltext" >
-                <ul>
-                    <?php if (isset($data['weathers'])) { ?>
-                    <?php foreach ($data['weathers'] as $mywea) { ?>
-                        <li class="scrolltext-title"><a href="javascript:;" rel="bookmark" style="color:#777;font-size:13px;">
-                                <?php echo $mywea['date'].$mywea['type'].$mywea['high'].$mywea['low'].$mywea['fx'].$mywea['fl'];?>
-                            </a></li>
-                        <?php }?>
-                    <?php  } else { ?>
-                    <li class="scrolltext-title"><a href="javascript:;" rel="bookmark" style="color:#777;">关于信息规范化要求的通知1</a></li>
-                    <li class="scrolltext-title"><a href="javascript:;" rel="bookmark" style="color:#777;">关于信息规范化要求的通知2</a></li>
-                    <?php } ?>
+                <ul id="myWeather">
+
                 </ul>
             </div>
         </div>
@@ -121,7 +112,7 @@
     <!-- 这里是版权说明模块 -->
     <footer id="colophon" class="site-footer" role="contentinfo">
         <div class="site-info">
-            <strong>Copyright © 2017-2018年 Myshared.top 花好月圆  版权所有.<a href="javascript:;">浙ICP备17059682号-1</a> </strong> <span class="add-info">
+            <strong>Copyright © 2017-<?php echo date('Y');?>年 Myshared.top 花好月圆  版权所有.<a href="javascript:;">浙ICP备17059682号-1</a> </strong> <span class="add-info">
         </div>
     </footer>
     <!-- 这里是版权说明模块 -->
@@ -155,3 +146,27 @@
 <!-- footer start -->
 <?php echo view('index.footer', $footer); ?>
 <!-- footer end -->
+<script>
+
+    $(function () {
+        $.ajax({
+            type: "GET",
+            url: "weather",
+            data: {},
+            dataType: "json",
+            success: function(data){
+                console.log(data);
+                //let ret = ("("+data+")");
+                let weather = data.weathers;
+                console.log(weather);
+                if (weather) {
+                    let aa = '';
+                    for (var k in weather) {
+                        aa += '<li class="scrolltext-title"><a href="javascript:;" rel="bookmark" style="color:#777;font-size:13px;">'+ weather[k].ymd + ' '+ weather[k].week+ ' ' + weather[k].type+ ' '+ weather[k].low + '~'+ weather[k].high+ '</a></li>';
+                    }
+                    $('#myWeather').html(aa);
+                }
+            }
+        });
+    });
+</script>

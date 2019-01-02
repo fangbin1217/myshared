@@ -116,3 +116,11 @@ $router->get( '/admin/look/{id}', [
 $router->get( '/admin/checktravel/{id}', [
     'uses' => 'AdminController@checktravel',
 ] );
+
+$router->get( 'travel/test', [
+    'uses' => 'TravelController@test',
+] );
+
+$router->get( '/weather', [
+    'uses' => 'IndexController@getweatherinfo',
+] );

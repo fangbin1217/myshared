@@ -16,6 +16,93 @@ class IndexController extends Controller
     public function __construct() {
         parent::__contract();
     }
+
+    public function getweatherinfo() {
+
+        $cityName = '';
+        $cityCode = '';
+        $ip = Agent::getIP();
+
+
+        $fileName = 'CITY'.ip2long($ip).'.txt';
+        $storageLog = $_SERVER['DOCUMENT_ROOT'].'/storage/logs';
+
+        $ipList = explode('.', $ip);
+
+        $weathersPath = $storageLog.'/'.$ipList[0];
+        $weathersFile = $weathersPath.'/'.$fileName;
+
+
+        if (file_exists($weathersFile)) {
+            $weathersJson = file_get_contents($weathersFile);
+            $cityName = $weathersJson;
+
+        } else {
+
+            $cityUrl = 'http://ip.taobao.com/service/getIpInfo.php?ip=' . '210.75.225.252';
+            $cityResult = $this->curl($cityUrl);
+            if ($cityResult) {
+                $ret = json_decode($cityResult, true);
+                if ($ret['code'] == 0 && isset($ret['data']) && $ret['data']) {
+
+                    if (!is_dir($weathersPath)) {
+                        mkdir($weathersPath, 0777);
+                        chmod($weathersPath, 0777);
+                    }
+                    $cityName = $ret['data']['city'];
+                    $f = fopen($weathersFile, 'w');
+                    fwrite($f, $cityName);
+                    fclose($f);
+                }
+            }
+        }
+
+        if ($cityName) {
+            $cityCodes = json_decode($nav = config('local')['cityCode'], true);
+            foreach ($cityCodes as $val) {
+                if ($cityName == $val['city_name']) {
+                    $cityCode = $val['city_code'];
+                    break;
+                }
+            }
+        }
+
+        $path2 = $storageLog.'/'.date('Ymd');
+        $wea3 = $path2.'/'.$cityName.'.txt';
+        if (file_exists($wea3)) {
+            $weathersJson3 = file_get_contents($wea3);
+            $myInfo = json_decode($weathersJson3, true);
+
+        } else {
+            if ($cityCode) {
+                $ret2 = $this->curl('http://t.weather.sojson.com/api/weather/city/' . $cityCode);
+                if ($ret2) {
+                    $weatherInfoList = json_decode($ret2, true);
+                    //print_r($weatherInfoList['data']['forecast']);exit;
+
+                    if ($weatherInfoList && isset($weatherInfoList['data']['forecast']) && $weatherInfoList['data']['forecast']) {
+                        $myInfo = $weatherInfoList['data']['forecast'];
+                        $weatherInfoJson = json_encode($myInfo, JSON_UNESCAPED_UNICODE);
+                        if (!is_dir($path2)) {
+                            mkdir($path2, 0777);
+                            chmod($path2, 0777);
+                        }
+                        $f = fopen($wea3, 'w');
+                        fwrite($f, $weatherInfoJson);
+                        fclose($f);
+                    }
+                }
+            }
+        }
+
+
+        $res = [
+            'cityName' => $cityName, 'cityCode' => $cityCode, 'weathers' => $myInfo,
+        ];
+        return json_encode($res, JSON_UNESCAPED_UNICODE);
+    }
+
+
     /**
      * Create a new controller instance.
      *
@@ -23,60 +110,7 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $datas = [];
-        $city = 'HZ';
-        $weathers = [];
-        $ip = Agent::getIP();
-        $fileName = 'W'.ip2long($ip).'.txt';
-        $storageLog = $_SERVER['DOCUMENT_ROOT'].'/storage/logs';
-        $logDate = $storageLog.'/'.date('Ymd');
-
-        $weathersFile = $logDate.'/'.$fileName;
-        if (file_exists($weathersFile)) {
-            $weathersJson = file_get_contents($weathersFile);
-            $datas = json_decode($weathersJson, true);
-            if (isset($datas['city'])) {
-                $city = $datas['city'];
-            }
-            if (isset($datas['weathers'])) {
-                $weathers = $datas['weathers'];
-            }
-        } else {
-            //先获取城市名称
-            $cityUrl = 'http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=json';
-            $cityResult = $this->curl($cityUrl);
-            if ($cityResult) {
-                $cityList = @json_decode($cityResult, true);
-                if ($cityList && isset($cityList['city'])) {
-                    $city = $cityList['city'];
-                    $datas['city'] = $city;
-                }
-            }
-            //在根据城市名称获取天气
-            if ($city) {
-                $url = 'http://www.sojson.com/open/api/weather/json.shtml?city=' . $city;
-                $result = $this->curl($url);
-                if ($result) {
-                    $datasList = @json_decode($result, true);
-                    if ($datasList['status'] == 200 && isset($datasList['data']['forecast'])) {
-                        $datas['weathers'] = $datasList['data']['forecast'];
-                        $weathers = $datas['weathers'];
-                    }
-                }
-            }
-            if ($datas) {
-                if (!is_dir($logDate)) {
-                    mkdir($logDate, 0777);
-                    chmod($logDate, 0777);
-                    $f = fopen($weathersFile, 'w');
-                    fwrite($f, json_encode($datas, JSON_UNESCAPED_UNICODE));
-                    fclose($f);
-                }
-            }
-        }
-
         $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
-        $this->result['data'] = ['IP' => $ip, 'myCity'=>$city, 'weathers' => $weathers];
         $this->result['myview'] = 'index.index.welcome';
         return view('index.index', $this->result);
 
@@ -107,6 +141,7 @@ class IndexController extends Controller
                 $randImage = \App\Models\Common\Image::randImage();
                 $familyList[$key]['randImage'] = 'static/image/timeline/'.$randImage;
                 $familyList[$key]['utime'] = date('Y-m-d', strtotime($val['utime']));
+                $familyList[$key]['sourceImage'] = $val['source_image'] ?? $val['image'];
             }
             $this->result['data'] = ['familyList' => $familyList, 'limit'=>$this->limit];
         }

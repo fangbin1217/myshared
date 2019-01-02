@@ -39,7 +39,7 @@ $(function(){
             if (i !== -1) {
                 S.UI.simulate(decodeURI(action).substring(i + 3));
             } else {
-                S.UI.simulate('|'+year+'|IN|<?php echo $myCity;?>|#rectangle|#countdown 3|GO|');
+                S.UI.simulate('|'+year+'|IN|CHINA|#rectangle|#countdown 3|GO|');
             }
 
             S.Drawing.loop(function () {
