@@ -39,7 +39,7 @@ class IndexController extends Controller
 
         } else {
 
-            $cityUrl = 'http://ip.taobao.com/service/getIpInfo.php?ip=' . '210.75.225.252';
+            $cityUrl = 'http://ip.taobao.com/service/getIpInfo.php?ip=' . $ip;
             $cityResult = $this->curl($cityUrl);
             if ($cityResult) {
                 $ret = json_decode($cityResult, true);
@@ -82,6 +82,13 @@ class IndexController extends Controller
 
                     if ($weatherInfoList && isset($weatherInfoList['data']['forecast']) && $weatherInfoList['data']['forecast']) {
                         $myInfo = $weatherInfoList['data']['forecast'];
+                        if ($myInfo) {
+                            foreach ($myInfo as $key=>$val) {
+                                if (isset($val['ymd'])) {
+                                    $myInfo[$key]['ymd'] = date('m-d', strtotime($val['ymd']));
+                                }
+                            }
+                        }
                         $weatherInfoJson = json_encode($myInfo, JSON_UNESCAPED_UNICODE);
                         if (!is_dir($path2)) {
                             mkdir($path2, 0777);

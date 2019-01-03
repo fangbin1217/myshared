@@ -49,9 +49,72 @@ class ArticleController extends Controller
 
         $this->result['navName'] = config('local')['nav']['articleStudy'];
         $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
-        $this->result['data'] = ['list' => []];
         $this->result['myview'] = 'index.article.study';
+
+        $mymenu = [];
+        $menu = config('local')['menu'];
+        foreach ($menu as $val) {
+            $tmp = $val;
+            $tmp['image'] =  config('local')['website'].'/static/image/label'.rand(1,4).'.png';
+            $mymenu[] =$tmp;
+        }
+        $this->result['data'] = ['list' => $mymenu];
+
         return view('index.index', $this->result);
 
+    }
+
+    public function nav($id) {
+        $this->result['navName'] = config('local')['nav']['articleStudy'];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['myview'] = 'index.article.nav';
+
+
+        $mymenu = [];
+        $menu = config('local')['menu'];
+        foreach ($menu as $val) {
+            if ($val['id'] == $id) {
+                $mymenu = $val;
+                break;
+            }
+        }
+
+        if (!$mymenu) {
+            header('Location:'.config('local')['website'].'/article/study');exit;
+        }
+        $this->result['navName'] .= ' > '.$mymenu['name'];
+        $list = [];
+        if (isset(config('local')[$mymenu['name']])) {
+            $list = config('local')[$mymenu['name']];
+            foreach ($list as $key=> $val) {
+                $tmp = $val;
+                $tmp['image'] =  config('local')['website'].'/static/image/label'.rand(1,4).'.png';
+                $list[$key] =$tmp;
+            }
+        }
+
+        $this->result['data'] = ['list' => $list];
+
+        return view('index.index', $this->result);
+
+    }
+
+    public function detail($id) {
+        $this->result['navName'] = config('local')['nav']['articleStudy'];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['myview'] = 'index.article.detail';
+
+
+        if (!isset(config('local')['ARTICLE'.$id])) {
+            header('Location:'.config('local')['website'].'/article/study');exit;
+        }
+        $mymenu = config('local')['ARTICLE'.$id];
+
+        $this->result['navName'] .= ' > '.$mymenu['name'];
+        $list = [];
+        $list = $mymenu['detail'];
+        $this->result['data'] = ['list' => $list];
+
+        return view('index.index', $this->result);
     }
 }

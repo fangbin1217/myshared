@@ -664,7 +664,7 @@ class Application extends Container
             'Illuminate\Support\Facades\Auth' => 'Auth',
             'Illuminate\Support\Facades\Cache' => 'Cache',
             'Illuminate\Support\Facades\DB' => 'DB',
-            'Illuminate\Support\Facades\Event' => 'Event',
+            //'Illuminate\Support\Facades\Event' => 'Event',
             'Illuminate\Support\Facades\Gate' => 'Gate',
             'Illuminate\Support\Facades\Log' => 'Log',
             'Illuminate\Support\Facades\Queue' => 'Queue',

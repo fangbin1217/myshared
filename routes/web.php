@@ -124,3 +124,11 @@ $router->get( 'travel/test', [
 $router->get( '/weather', [
     'uses' => 'IndexController@getweatherinfo',
 ] );
+
+$router->get( '/article/nav/{id}', [
+    'uses' => 'ArticleController@nav',
+] );
+
+$router->get( '/article/detail/{id}', [
+    'uses' => 'ArticleController@detail',
+] );

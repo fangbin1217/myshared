@@ -65,7 +65,7 @@ if (ENVIRONMENT == 'development') {
                 'port' => env('DB_PORT', 3306),
                 'database' => env('DB_DATABASE', 'myshared'),
                 'username' => env('DB_USERNAME', 'root'),
-                'password' => env('DB_PASSWORD', '123456'),
+                'password' => env('DB_PASSWORD', '123456'),   //123456
 
                 /* 主从开启设置
                 'read' => [
@@ -225,12 +225,18 @@ if (ENVIRONMENT == 'development') {
 
             'mysql' => [
                 'driver' => 'mysql',
-
+                /*
                 'host' => env('DB_HOST', 'hdm359939428.my3w.com'),
                 'port' => env('DB_PORT', 3306),
                 'database' => env('DB_DATABASE', 'hdm359939428_db'),
                 'username' => env('DB_USERNAME', 'hdm359939428'),
                 'password' => env('DB_PASSWORD', 'mysql2016fb'),
+                */
+                'host' => env('DB_HOST', '127.0.0.1'),
+                'port' => env('DB_PORT', 3306),
+                'database' => env('DB_DATABASE', 'myshared'),
+                'username' => env('DB_USERNAME', 'root'),
+                'password' => env('DB_PASSWORD', '11Cda4b4ddca'),
 
                 /* 主从开启设置
                 'read' => [

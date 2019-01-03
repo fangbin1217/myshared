@@ -29,8 +29,8 @@
                             </form>
                             <h2 class="name">方斌 <i class="fz-resume fz-male"></i></h2>
                             <div class="info-labels">
-                                <p class="row-base"><span class="label-text"><i class="fz-resume fz-experience"></i>7年工作经验</span><em class="vline"></em><span class="label-text"><i class="fz-resume fz-degree"></i>本科学历</span> <em class="vline"></em><span class="label-text"><i class="fz-resume fz-status"></i>在职 一周以内到岗</span></p>
-                                <p class="row-contact"><span class="label-text"><i class="fz-resume fz-tel"></i>188 xxxx 0207</span></p>
+                                <p class="row-base"><span class="label-text"><i class="fz-resume fz-experience"></i>7年工作经验</span><em class="vline"></em><span class="label-text"><i class="fz-resume fz-degree"></i>本科</span> <em class="vline"></em><span class="label-text"><i class="fz-resume fz-status"></i>在职 一周以内到岗</span></p>
+                                <p class="row-contact"><span class="label-text"><i class="fz-resume fz-tel"></i>188 xxxx 0207</span><em class="vline"></em><span class="label-text"><i class="fz-resume fz-mail"></i>jsonp@sina.com</span></p>
                             </div>
                         </div>
                         <div class="item-form"></div>
@@ -214,17 +214,7 @@
                         </div>
                         <div class="item-form"></div>
                     </div>
-                    <div class="resume-item" id="resume-project">
-                        <div class="item-primary">
-                            <h3 class="title">项目经验
 
-                            </h3>
-                            <div class="history-project">
-
-                            </div>
-                        </div>
-                        <div class="item-form"></div>
-                    </div>
                     <div class="resume-item" id="resume-education">
                         <div class="item-primary">
                             <h3 class="title">教育经历
@@ -252,8 +242,9 @@
                             <h3 class="title">其它
                             </h3>
                             <div class="social-account">
-                                个人网站：<a href="http://www.myshared.top">http://www.myshared.top</a><br/>
-                                GIT：<a href="https://github.com/fangbin1217">https://github.com/fangbin1217</a>
+                                <img src="<?php echo config('local')['website']; ?>/static/image/icon-indexsel.png"  style="vertical-align:middle;margin-right:24px;width:25px;height:25px;" /><a title="个人主页" href="http://www.myshared.top">http://www.myshared.top</a><br/>
+                                <img src="<?php echo config('local')['website']; ?>/static/image/icon_github.png"   style="vertical-align:middle;margin-right:24px;width:25px;height:25px;" /><a title="我的GIT" href="https://github.com/fangbin1217">https://github.com/fangbin1217</a><br/>
+                                <img src="<?php echo config('local')['website']; ?>/static/image/h5.png"   style="vertical-align:middle;margin-right:24px;width:25px;height:25px;" /><a title="h5作品" href="http://chicken.myshared.top/index.html">http://chicken.myshared.top/index.html</a><br/>
                             </div>
                         </div>
                         <div class="item-form"></div>
