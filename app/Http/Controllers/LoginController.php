@@ -89,4 +89,9 @@ class LoginController extends Controller
         return view('index.index', $this->result);
 
     }
+
+    public function test() {
+        $a = \App\Models\User\User::getUserByIds();
+        print_r($a['nickname']);exit;
+    }
 }
