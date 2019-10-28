@@ -91,8 +91,27 @@ class LoginController extends Controller
     }
 
     public function test() {
-        $a = \App\Models\User\User::getUserByIds();
-        print_r($a[0]['nickname']);exit;
-        echo 'test';exit;
+        /*
+        $url = 'https://jifen.myshared.top/test/test';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, FALSE);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 13);
+        //设置post方式提交
+        curl_setopt($ch, CURLOPT_POST, 15);
+
+
+
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([], JSON_UNESCAPED_UNICODE));
+        $output = curl_exec($ch);
+        $output = json_decode($output, true);
+        print_r($output['data']);exit;
+        */
+
+        //$a = \App\Models\User\User::getUserByIds();
+        //print_r($a[0]['nickname']);exit;
+        //echo 'test';exit;
     }
 }
