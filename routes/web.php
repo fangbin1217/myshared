@@ -21,6 +21,10 @@ $router->get( '/', [
     'uses' => 'IndexController@index',
 ] );
 
+$router->get( '/test', [
+    'uses' => 'LoginController@test',
+] );
+
 $router->get( '/resume', [
     'uses' => 'IndexController@resume',
 ] );
