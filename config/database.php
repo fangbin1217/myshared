@@ -237,6 +237,7 @@ if (ENVIRONMENT == 'development') {
                 'database' => env('DB_DATABASE', 'wechat'),
                 'username' => env('DB_USERNAME', 'root'),
                 'password' => env('DB_PASSWORD', '11Cda4b4ddca'),
+                'charset' => env('DB_CHARSET', 'utf8mb4'),
 
                 /* 主从开启设置
                 'read' => [
