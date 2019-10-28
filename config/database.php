@@ -234,7 +234,7 @@ if (ENVIRONMENT == 'development') {
                 */
                 'host' => env('DB_HOST', '127.0.0.1'),
                 'port' => env('DB_PORT', 3306),
-                'database' => env('DB_DATABASE', 'wechat'),
+                'database' => env('DB_DATABASE', 'myshared'),
                 'username' => env('DB_USERNAME', 'root'),
                 'password' => env('DB_PASSWORD', '11Cda4b4ddca'),
                 /* 主从开启设置

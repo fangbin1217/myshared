@@ -110,8 +110,8 @@ class LoginController extends Controller
         print_r($output['data']);exit;
         */
 
-        $a = \App\Models\User\User::getUserByIds();
-        print_r($a[0]['nickname']);exit;
+        //$a = \App\Models\User\User::getUserByIds();
+        //print_r($a[0]['nickname']);exit;
         //echo 'test';exit;
     }
 }

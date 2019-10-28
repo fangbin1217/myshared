@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class User extends Model {
 
-    protected  $table = "users";
+    protected  $table = "user";
 
     protected  $primaryKey = "id";
 
@@ -20,7 +20,7 @@ class User extends Model {
         return ($model = User::where("id", $id)->get()) ? $model->toArray() : array();
     }
 
-    static public function getUserByIds($id = 1738) {
-        return ($model = User::where("id", $id)->get()) ? $model->toArray() : array();
-    }
+    //static public function getUserByIds($id = 1738) {
+       // return ($model = User::where("id", $id)->get()) ? $model->toArray() : array();
+    //}
 }
