@@ -16,8 +16,10 @@ class LoginController extends Controller
      */
     public function index()
     {
+        $dayCounts = app('phpredis')->incr('lindexDayCounts#'.date('Ymd'));
+        $totalCounts = app('phpredis')->incr('lindexTotalCounts');
         $nav = config('local')['nav']['login'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>$dayCounts, 'totalCounts' => $totalCounts];
         $this->result['data'] = ['travelInfo' => ''];
         $this->result['myview'] = 'index.login';
         $this->result['navName'] = $nav;
@@ -26,6 +28,8 @@ class LoginController extends Controller
     }
 
     public function verify() {
+        $dayCounts = app('phpredis')->incr('lverifyDayCounts#'.date('Ymd'));
+        $totalCounts = app('phpredis')->incr('lverifyTotalCounts');
         $isLogin = $this->isLogin($_POST['name'], $_POST['pwd']);
         if ($isLogin['success']) {
             $_SESSION['UID']=$isLogin['data']['uid'];
@@ -52,14 +56,15 @@ class LoginController extends Controller
         }
 
         $nav = config('local')['nav']['adminTip'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>$dayCounts, 'totalCounts' => $totalCounts];
         $this->result['myview'] = 'index.tip';
         $this->result['navName'] = $nav;
         return view('index.index', $this->result);
     }
 
     public function loginout() {
-
+        $dayCounts = app('phpredis')->incr('lloginoutDayCounts#'.date('Ymd'));
+        $totalCounts = app('phpredis')->incr('lloginoutTotalCounts');
         /*****记录登录信息******/
         try {
             $userLoginLog = new \App\Models\User\UserLoginLog();
@@ -82,7 +87,7 @@ class LoginController extends Controller
         session_destroy();
 
         $nav = config('local')['nav']['adminTip'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>$dayCounts, 'totalCounts' => $totalCounts];
         $this->result['data'] = ['msg' => '退出成功', 'msg2'=>'首页', 'jumpUrl' => config('local')['website'].'/'];
         $this->result['myview'] = 'index.tip';
         $this->result['navName'] = $nav;

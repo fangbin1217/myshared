@@ -19,7 +19,7 @@ class AdminController extends Controller
     private function noLogin() {
         if (!$this->result['login']) {
             //跳转到login
-            header('location:'.config('local')['website'].'/login');exit;
+            header('location:'.config('local')['website'].'login');exit;
         }
     }
 
@@ -32,7 +32,7 @@ class AdminController extends Controller
     {
         $this->noLogin();
         $nav = config('local')['nav']['admin'];
-        $this->result['sidebar'] = ['now' => date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' => date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>0, 'totalCounts' => 0];
         $this->result['data'] = ['loginInfo'=> $this->result['login']];
         $this->result['myview'] = 'index.admin';
 
@@ -52,7 +52,7 @@ class AdminController extends Controller
             }
 
             $nav = config('local')['nav']['adminAddBaby'];
-            $this->result['sidebar'] = ['now' => date('Y-m-d H:i:s', strtotime('-1 days'))];
+            $this->result['sidebar'] = ['now' => date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>0, 'totalCounts' => 0];
             $this->result['data'] = ['travelInfo' => '', 'loginInfo'=> $this->result['login'], 'tip'=>$tip];
             $this->result['myview'] = 'index.admin.addbaby';
 
@@ -199,7 +199,7 @@ class AdminController extends Controller
 
 
         $nav = config('local')['nav']['adminTip'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>0, 'totalCounts' => 0];
         if ($result['success']) {
             $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '宝宝照片墙', 'jumpUrl' => config('local')['website'] . '/baby'];
         } else {
@@ -232,7 +232,7 @@ class AdminController extends Controller
     public function addtravelfirst() {
         $this->noLogin();
         $nav = config('local')['nav']['adminMyTravel'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>0, 'totalCounts' => 0];
         $this->result['data'] = ['loginInfo'=> $this->result['login']];
         $this->result['myview'] = 'index.admin.addtravelfirst';
         $this->result['navName'] = $nav;
@@ -406,11 +406,11 @@ class AdminController extends Controller
 
 
         $nav = config('local')['nav']['adminTip'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>0, 'totalCounts' => 0];
         if ($result['success']) {
-            $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '我的旅行', 'jumpUrl' => config('local')['website'] . '/admin/mytravel'];
+            $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '我的旅行', 'jumpUrl' => config('local')['website'] . 'admin/mytravel'];
         } else {
-            $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '添加旅行操作页', 'jumpUrl' => config('local')['website'] . '/admin/addtravelfirst'];
+            $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '添加旅行操作页', 'jumpUrl' => config('local')['website'] . 'admin/addtravelfirst'];
         }
         $this->result['myview'] = 'index.tip';
         $this->result['navName'] = $nav;
@@ -421,7 +421,7 @@ class AdminController extends Controller
     public function addtraveldetail($id) {
         $this->noLogin();
         $nav = config('local')['nav']['adminMyTravel'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>0, 'totalCounts' => 0];
         $this->result['data'] = ['loginInfo'=> $this->result['login'], 'travelId'=>$id];
         $this->result['myview'] = 'index.admin.addtraveldetail';
         $this->result['navName'] = $nav;
@@ -578,11 +578,11 @@ class AdminController extends Controller
         }
 
         $nav = config('local')['nav']['adminTip'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>0, 'totalCounts' => 0];
         if ($result['success']) {
-            $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '我的旅行', 'jumpUrl' => config('local')['website'] . '/admin/mytravel'];
+            $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '我的旅行', 'jumpUrl' => config('local')['website'] . 'admin/mytravel'];
         } else {
-            $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '添加旅行操作页', 'jumpUrl' => config('local')['website'] . '/admin/addtraveldetail/'.$travelId];
+            $this->result['data'] = ['msg' => $result['msg'], 'msg2' => '添加旅行操作页', 'jumpUrl' => config('local')['website'] . 'admin/addtraveldetail/'.$travelId];
         }
         $this->result['myview'] = 'index.tip';
         $this->result['navName'] = $nav;
@@ -599,7 +599,7 @@ class AdminController extends Controller
         }
         $travelList = \App\Models\Travel\Travel::getOne($where, $id);
         $nav = config('local')['nav']['adminMyTravel'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>0, 'totalCounts' => 0];
         $this->result['data'] = ['loginInfo'=> $this->result['login'], 'list'=>$travelList];
         $this->result['myview'] = 'index.admin.look';
         $this->result['navName'] = $nav;
@@ -612,12 +612,12 @@ class AdminController extends Controller
             $isUpd = \App\Models\Travel\Travel::where(['id'=>$id])->update(['state'=>0]);
         }
         $nav = config('local')['nav']['adminTip'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>0, 'totalCounts' => 0];
 
         if ($isUpd) {
-            $this->result['data'] = ['msg' => '审核成功', 'msg2' => '旅行查看页', 'jumpUrl' => config('local')['website'] . '/admin/look/'.$id];
+            $this->result['data'] = ['msg' => '审核成功', 'msg2' => '旅行查看页', 'jumpUrl' => config('local')['website'] . 'admin/look/'.$id];
         } else {
-            $this->result['data'] = ['msg' => '审核失败', 'msg2' => '旅行查看页', 'jumpUrl' => config('local')['website'] . '/admin/look/'.$id];
+            $this->result['data'] = ['msg' => '审核失败', 'msg2' => '旅行查看页', 'jumpUrl' => config('local')['website'] . 'admin/look/'.$id];
         }
         $this->result['myview'] = 'index.tip';
         $this->result['navName'] = $nav;

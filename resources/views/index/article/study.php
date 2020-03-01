@@ -3,11 +3,11 @@
     #container {
         position: relative;
         height: 700px;
-        width: 500px;
+        width: 100%;
         margin: 10px auto;
         overflow: hidden;
         border: 4px solid #5C090A;
-        background: #4E4226 url('/static/image/backgroundLeaves.jpg') no-repeat top left;
+        background: #4E4226 url('http://image.fyy6.com/index/backgroundLeaves0229.png') repeat top left;
     }
 
     /* Defines the position and dimensions of the leafContainer div */
@@ -22,7 +22,7 @@
     #message
     {
         position: absolute;
-        top: 160px;
+        top: 50px;
         width: 100%;
         height: 300px;
         background:transparent url('/static/image/textBackground.png') repeat-x center;
@@ -142,7 +142,7 @@
         <div id="message">
             <?php
                 foreach ($list as $val) {
-                    echo "<div  style='text-align: left'><a href='/article/nav/".$val['id']."'><img style='width:32px;height:32px;' src='".$val['image']."' /> <span style='font-size: 24'>".$val['name']."篇</span></a></div></hr>";
+                    echo "<div  style='text-align: left'><a href='/article/detail/".$val['id'].".html'><img style='width:32px;height:32px;' src='".$val['image']."' /> <span style='font-size: 24'>".$val['name']."篇</span></a></div></hr>";
                 }
                 ?>
         </div>

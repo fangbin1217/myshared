@@ -19,8 +19,10 @@ class RegisterController extends Controller
      */
     public function index()
     {
+        $dayCounts = app('phpredis')->incr('rindexDayCounts#'.date('Ymd'));
+        $totalCounts = app('phpredis')->incr('rindexTotalCounts');
         $nav = config('local')['nav']['register'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>$dayCounts, 'totalCounts' => $totalCounts];
         $this->result['data'] = ['travelInfo' => ''];
         $this->result['myview'] = 'index.register';
         $this->result['navName'] = $nav;
@@ -28,6 +30,8 @@ class RegisterController extends Controller
     }
 
     public function verify() {
+        $dayCounts = app('phpredis')->incr('rverifyDayCounts#'.date('Ymd'));
+        $totalCounts = app('phpredis')->incr('rverifyTotalCounts');
         $result = ['success'=>false, 'msg'=>'注册失败','code'=>0, 'data'=>[]];
         $name = trim($_POST['name']);
         $pwd = trim($_POST['pwd']);
@@ -92,12 +96,12 @@ class RegisterController extends Controller
             }
         }
         if ($result['success']) {
-            $this->result['data'] = ['msg' => $result['msg'], 'msg2'=>'登录页', 'jumpUrl' => config('local')['website'].'/login'];
+            $this->result['data'] = ['msg' => $result['msg'], 'msg2'=>'登录页', 'jumpUrl' => config('local')['website'].'login'];
         } else {
-            $this->result['data'] = ['msg' => $result['msg'], 'msg2'=>'注册页', 'jumpUrl' => config('local')['website'].'/register'];
+            $this->result['data'] = ['msg' => $result['msg'], 'msg2'=>'注册页', 'jumpUrl' => config('local')['website'].'register'];
         }
         $nav = config('local')['nav']['adminTip'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>$dayCounts, 'totalCounts' => $totalCounts];
         $this->result['myview'] = 'index.tip';
         $this->result['navName'] = $nav;
         return view('index.index', $this->result);

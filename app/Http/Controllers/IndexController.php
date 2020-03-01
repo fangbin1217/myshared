@@ -24,87 +24,8 @@ class IndexController extends Controller
         $ip = Agent::getIP();
 
 
-        $fileName = 'CITY'.ip2long($ip).'.txt';
-        $storageLog = $_SERVER['DOCUMENT_ROOT'].'/storage/logs';
-
-        $ipList = explode('.', $ip);
-
-        $weathersPath = $storageLog.'/'.$ipList[0];
-        $weathersFile = $weathersPath.'/'.$fileName;
-
-
-        if (file_exists($weathersFile)) {
-            $weathersJson = file_get_contents($weathersFile);
-            $cityName = $weathersJson;
-
-        } else {
-
-            $cityUrl = 'http://ip.taobao.com/service/getIpInfo.php?ip=' . $ip;
-            $cityResult = $this->curl($cityUrl);
-            if ($cityResult) {
-                $ret = json_decode($cityResult, true);
-                if ($ret['code'] == 0 && isset($ret['data']) && $ret['data']) {
-
-                    if (!is_dir($weathersPath)) {
-                        mkdir($weathersPath, 0777);
-                        chmod($weathersPath, 0777);
-                    }
-                    $cityName = $ret['data']['city'];
-                    $f = fopen($weathersFile, 'w');
-                    fwrite($f, $cityName);
-                    fclose($f);
-                }
-            }
-        }
-
-        if ($cityName) {
-            $cityCodes = json_decode($nav = config('local')['cityCode'], true);
-            foreach ($cityCodes as $val) {
-                if ($cityName == $val['city_name']) {
-                    $cityCode = $val['city_code'];
-                    break;
-                }
-            }
-        }
-
-        $path2 = $storageLog.'/'.date('Ymd');
-        $wea3 = $path2.'/'.$cityName.'.txt';
-        if (file_exists($wea3)) {
-            $weathersJson3 = file_get_contents($wea3);
-            $myInfo = json_decode($weathersJson3, true);
-
-        } else {
-            if ($cityCode) {
-                $ret2 = $this->curl('http://t.weather.sojson.com/api/weather/city/' . $cityCode);
-                if ($ret2) {
-                    $weatherInfoList = json_decode($ret2, true);
-                    //print_r($weatherInfoList['data']['forecast']);exit;
-
-                    if ($weatherInfoList && isset($weatherInfoList['data']['forecast']) && $weatherInfoList['data']['forecast']) {
-                        $myInfo = $weatherInfoList['data']['forecast'];
-                        if ($myInfo) {
-                            foreach ($myInfo as $key=>$val) {
-                                if (isset($val['ymd'])) {
-                                    $myInfo[$key]['ymd'] = date('m-d', strtotime($val['ymd']));
-                                }
-                            }
-                        }
-                        $weatherInfoJson = json_encode($myInfo, JSON_UNESCAPED_UNICODE);
-                        if (!is_dir($path2)) {
-                            mkdir($path2, 0777);
-                            chmod($path2, 0777);
-                        }
-                        $f = fopen($wea3, 'w');
-                        fwrite($f, $weatherInfoJson);
-                        fclose($f);
-                    }
-                }
-            }
-        }
-
-
         $res = [
-            'cityName' => $cityName, 'cityCode' => $cityCode, 'weathers' => $myInfo,
+            'cityName' => '', 'cityCode' => '', 'weathers' => '',
         ];
         return json_encode($res, JSON_UNESCAPED_UNICODE);
     }
@@ -117,7 +38,9 @@ class IndexController extends Controller
      */
     public function index()
     {
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $dayCounts = app('phpredis')->incr('indexDayCounts#'.date('Ymd'));
+        $totalCounts = app('phpredis')->incr('indexTotalCounts');
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>$dayCounts, 'totalCounts' => $totalCounts];
         $this->result['myview'] = 'index.index.welcome';
         return view('index.index', $this->result);
 
@@ -125,7 +48,9 @@ class IndexController extends Controller
 
     public function resume()
     {
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $dayCounts = app('phpredis')->incr('resumeDayCounts#'.date('Ymd'));
+        $totalCounts = app('phpredis')->incr('resumeTotalCounts');
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>$dayCounts, 'totalCounts' => $totalCounts];
         $this->result['myview'] = 'index.about.resume';
         $this->result['navName'] = config('local')['nav']['resume'];
         return view('index.index', $this->result);
@@ -133,7 +58,9 @@ class IndexController extends Controller
 
 
     public function baby() {
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $dayCounts = app('phpredis')->incr('babyDayCounts#'.date('Ymd'));
+        $totalCounts = app('phpredis')->incr('babyTotalCounts');
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>$dayCounts, 'totalCounts' => $totalCounts];
         $page = 1;
         $offset = ($page-1)*$this->limit;
         if ($this->result['login'] && $this->result['login']['isAdmin']) {

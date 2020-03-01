@@ -13,7 +13,7 @@
 
         <div class="cd-timeline-content">
             <h2><?php echo $val['title']; ?></h2>
-            <p><img src="<?php echo $val['image']; ?>" /></p>
+            <p><img src="<?php echo $val['image']; ?>"/></p>
             <a href="javascript:;" class="cd-read-more">阅读全文</a>
             <span class="cd-date"><?php echo $val['utime']; ?></span>
         </div>

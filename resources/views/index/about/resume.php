@@ -71,9 +71,41 @@
 
                             </h3>
                             <div class="history-project">
+                                <div class="history-item" id="row-e02e971bfb41fdd33n162Nm1GB~~">
+                                    <span class="period">2018.5-2018.11</span>
+                                    <h4 class="name">杭州东九网络科技有限公司</h4>
+                                    <div class="text">
+                                        <h4>技术部<em class="vline"></em>高级PHP开发</h4>
+
+                                        <div class="text">
+                                            <h4>工作内容</h4>
+                                            <p>
+                                                1.负责闪电鱼APP服务端接口开发，主要是一款陪玩、代练的游戏平台，使用rabbitmq做异步消息,以及日常的版本兼容迭代等工作<br/>
+                                                2.负责后台系统管理开发与维护，开发API文档编写等;使用Kibana配合Elasticsearch做日志分析<br/>
+                                                3.开发任务分解，前后端接口规范定义，协调组内及组外工作<br/>
+                                            </p>
+                                        </div>
+
+
+                                    </div>
+
+
+                                    <div class="text">
+                                        <h4>
+
+                                            <span>SHELL</span>
+
+                                            <span>PHP7</span>
+
+                                            <span>REDIS</span>
+
+                                        </h4>
+                                    </div>
+
+                                </div>
 
                                 <div class="history-item" id="row-e02e971bfb41fdd33n162Nm1GA~~">
-                                    <span class="period">2017.12-至今</span>
+                                    <span class="period">2017.12-2018.5</span>
                                     <h4 class="name">杭州祺翼信息科技有限公司</h4>
                                     <div class="text">
                                         <h4>技术部<em class="vline"></em>PHP主管</h4>

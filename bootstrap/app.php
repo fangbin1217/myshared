@@ -94,6 +94,14 @@ $app->singleton(
 | can respond to, as well as the controllers that may handle them.
 |
 */
+$app->singleton('phpredis', function(){
+    $redis = new Redis;
+    $redis->pconnect('127.0.0.1'); //建立连接
+        $redis->select(0); //选择库
+    return $redis;
+});
+unset($app->availableBindings['redis']);
+
 
 $app->configure('local');
 

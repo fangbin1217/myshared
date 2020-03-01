@@ -19,6 +19,8 @@ class TravelController extends Controller
      */
     public function index()
     {
+        $dayCounts = app('phpredis')->incr('tindexDayCounts#'.date('Ymd'));
+        $totalCounts = app('phpredis')->incr('tindexTotalCounts');
         $travelList = \App\Models\Travel\Travel::getList();
         if ($travelList) {
             foreach ($travelList as $key=>$val) {
@@ -29,15 +31,15 @@ class TravelController extends Controller
                     $travelList[$key]['tagName'] = config('local')['travel_tag'][$val['tag']];
                 }
 
-                $travelList[$key]['indexImage'] = config('local')['website'].'/'.$val['index_image'];
+                $travelList[$key]['indexImage'] = config('local')['website'].$val['index_image'];
 
                 $travelList[$key]['utime'] = \App\Models\Common\Date::getDateToString($val['utime']);
 
-                $travelList[$key]['travelLink'] = config('local')['website'].'/travel/detail/'.$val['id'];
+                $travelList[$key]['travelLink'] = config('local')['website'].'travel/detail/'.$val['id'];
             }
         }
         $this->result['navName'] = config('local')['nav']['travel'];
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>$dayCounts, 'totalCounts' => $totalCounts];
         $this->result['data'] = ['travelList' => $travelList];
         $this->result['myview'] = 'index.travel.index';
         return view('index.index', $this->result);
@@ -46,6 +48,8 @@ class TravelController extends Controller
 
     public function detail($id)
     {
+        $dayCounts = app('phpredis')->incr('tindexDayCounts#'.date('Ymd'));
+        $totalCounts = app('phpredis')->incr('tindexTotalCounts');
         $nav = config('local')['nav']['travel'];
         $page = 1;
         $offset = ($page-1)*$this->limit;
@@ -58,7 +62,7 @@ class TravelController extends Controller
                 $travelInfo[$key]['utime'] = date('Y-m-d', strtotime($val['utime']));
             }
         }
-        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days'))];
+        $this->result['sidebar'] = ['now' =>date('Y-m-d H:i:s', strtotime('-1 days')), 'dayCounts'=>$dayCounts, 'totalCounts' => $totalCounts];
         $this->result['data'] = ['travelInfo' => $travelInfo, 'limit'=>$this->limit, 'id'=>$id];
         $this->result['myview'] = 'index.travel.detail';
         $this->result['navName'] = $nav;
