@@ -8,7 +8,7 @@
 <div style="color:#000000;margin-top:10px;"><img src="<?php echo config('local')['imgHost'].'index/code0303.png'; ?>"  style="width:800px;height:665px;"/></div>
 <div style="color:#000000;margin-top:10px;">通过用户观看视频来获取抽奖机会，演示请移步到QQ小程序观看，QQ小程序搜索  <span style="font-size:20px;">文具大转盘</span>   或者QQ扫如下二维码：</div>
 <div style="color:#000000;margin-top:10px;text-align:center;"><img src="<?php echo config('local')['imgHost'].'index/dzp0301.png'; ?>"  style="width:200px;height:200px;border-radius:10px;"/></div>
-<div style="color:#000000;margin-top:10px;">最后，欢迎广大网友和小程序爱好者加我微信或者QQ，一起交流下技术及心动体会（微信或QQ见网站右下角）。</div>
+<div style="color:#000000;margin-top:10px;">最后，欢迎广大网友和小程序爱好者加我微信或者QQ，一起交流下技术及心得体会（微信或QQ见网站右下角）。</div>
 
 <?php } else {  ?>
 
